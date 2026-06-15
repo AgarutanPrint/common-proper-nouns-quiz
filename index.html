@@ -64,13 +64,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f7ff;min-height:100vh;padding
 .badge-b{background:#e0f2fe;color:#1b4f72;}
 .badge-ch{background:#f3e5f5;color:#4a148c;}
 
+/* ⚠️ ENHANCED EXIT BUTTON COLOR */
 .exit-btn{
   display:flex;align-items:center;gap:5px;background:#fff;
-  border:2px solid #e0e0e0;border-radius:50px;padding:6px 14px;
-  font-family:'Nunito',sans-serif;font-size:0.84em;font-weight:800;
-  color:#888;cursor:pointer;transition:all 0.2s;
+  border:2.5px solid #ff7675;border-radius:50px;padding:6px 16px;
+  font-family:'Nunito',sans-serif;font-size:0.86em;font-weight:850;
+  color:#d63031;cursor:pointer;transition:all 0.2s;
 }
-.exit-btn:hover{border-color:#e17055;color:#e17055;background:#fff5f3;}
+.exit-btn:hover{border-color:#d63031;color:#fff;background:#ff7675;}
 
 /* PROGRESS */
 .prog-wrap{background:#e8e8e8;border-radius:50px;height:12px;margin-bottom:6px;overflow:hidden;}
@@ -88,7 +89,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f7ff;min-height:100vh;padding
 }
 @keyframes slideIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
-.q-num-label{font-size:0.72em;font-weight:900;color:#ccc;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.q-num-label{font-size:0.72em;font-weight:900;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
 .q-text{font-size:1.07em;font-weight:800;color:#2d3436;line-height:1.55;margin-bottom:16px;}
 .q-hint-text{font-size:0.8em;color:#aaa;font-weight:600;font-style:italic;margin-bottom:12px;}
 
@@ -296,7 +297,7 @@ a:[
    ans:2,fb:"'puppy' is a general name for a thing/animal, making it the common noun."},
 
   {type:"fill",q:"Complete with a common noun for an object: I wrote my name down with a ________.",
-   blank:"pencil",fb:"'pencil' (or pen) is a standard common noun for an object."},
+   blank:"pencil",fb:"'pencil' is a standard common noun for an object."},
 
   {type:"mc",q:"Which group contains ONLY common nouns?",
    opts:["city, country, ocean","Paris, France, Atlantic","John, boy, school","Pizza Hut, restaurant, food"],
@@ -488,7 +489,7 @@ function updateStrip(){
 }
 
 // ═══════════════════════════════════════
-//  RENDER QUESTION
+//  RENDER QUESTION (⚠️ FIXED DUPLICATION BUG)
 // ═══════════════════════════════════════
 function renderQuestion(){
   answered = false;
@@ -539,7 +540,6 @@ function renderQuestion(){
 
   wrap.innerHTML = html;
 
-  // focus fill input
   if(q.type==='fill'){
     setTimeout(()=>{
       const el=document.getElementById('fillInput');
@@ -559,9 +559,11 @@ function pickMC(i){
 
   q.opts.forEach((_,idx)=>{
     const btn=document.getElementById('opt'+idx);
-    btn.disabled=true;
-    if(idx===q.ans) btn.classList.add('correct');
-    else if(idx===i && !ok) btn.classList.add('wrong');
+    if(btn){
+      btn.disabled=true;
+      if(idx===q.ans) btn.classList.add('correct');
+      else if(idx===i && !ok) btn.classList.add('wrong');
+    }
   });
 
   showFeedback(ok, ok ? q.fb : 'The correct answer is: '+q.opts[q.ans]+'. '+q.fb);
