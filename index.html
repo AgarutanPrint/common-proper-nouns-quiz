@@ -14,9 +14,10 @@ body {
   padding: 8px 16px;
   color: #333;
   overflow-x: hidden;
+  position: relative;
 }
 
-.container { max-width: 800px; margin: 0 auto; }
+.container { max-width: 800px; margin: 0 auto; position: relative; z-index: 10; }
 
 /* ── COMPACT MENU SCREEN ── */
 #menuScreen { display: block; }
@@ -147,6 +148,12 @@ body {
 .btn-retry { background: linear-gradient(135deg, #f5a623, #f76b1c); color: white; border: none; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 .btn-menu { background: white; color: #5b8dee; border: 2px solid #5b8dee; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
+/* ── CONFETTI CANVAS ── */
+#confettiCanvas {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 999; display: none;
+}
+
 @media (max-width: 480px) {
   .unit-cards { grid-template-columns: 1fr; }
   .unit-card-full { grid-column: auto; }
@@ -154,6 +161,9 @@ body {
 </style>
 </head>
 <body>
+
+<canvas id="confettiCanvas"></canvas>
+
 <div class="container">
 
 <!-- ══════════════ MENU ══════════════ -->
@@ -173,19 +183,19 @@ body {
       <div class="icon">🌿</div>
       <div class="part-label">Part A</div>
       <h3>Common Nouns</h3>
-      <div class="q-count">15 questions</div>
+      <div class="q-count">12 questions</div>
     </div>
     <div class="unit-card blue" onclick="startQuiz('B')">
       <div class="icon">👑</div>
       <div class="part-label">Part B</div>
       <h3>Proper Nouns</h3>
-      <div class="q-count">15 questions</div>
+      <div class="q-count">12 questions</div>
     </div>
     <div class="unit-card unit-card-full" onclick="startQuiz('C')">
       <div class="icon">⚡</div>
       <div class="part-label">Noun Challenge</div>
       <h3>Capitalization, Titles &amp; Identification Master</h3>
-      <div class="q-count">20 questions</div>
+      <div class="q-count">12 questions</div>
     </div>
   </div>
 </div>
@@ -228,7 +238,7 @@ body {
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// NEW EXPANDED QUESTION POOL WITH ADDED TITLE RULES
+// QUESTIONS POOL
 // ════════════════════════════════════════════════════════════════
 
 const BANK_A = [
@@ -311,6 +321,7 @@ function shuffle(arr) {
 
 function startQuiz(unit) {
   activeUnit = unit;
+  stopConfetti();
   if (unit === 'A') activeQuestions = shuffle(BANK_A);
   else if (unit === 'B') activeQuestions = shuffle(BANK_B);
   else activeQuestions = shuffle(BANK_C);
@@ -326,13 +337,12 @@ function startQuiz(unit) {
 }
 
 function exitToMenu() {
-  if (!answered && current > 0) {
-    if (!confirm('Exit to menu? Your progress will be lost.')) return;
-  }
+  stopConfetti();
   goMenu();
 }
 
 function goMenu() {
+  stopConfetti();
   document.getElementById('quizScreen').style.display = 'none';
   document.getElementById('endScreen').style.display = 'none';
   document.getElementById('menuScreen').style.display = 'block';
@@ -344,7 +354,7 @@ function retryQuiz() {
 }
 
 // ════════════════════════════════════════════════════════════════
-// CLEAN DESIGN RENDER PIPELINE
+// RENDER PIPELINE
 // ════════════════════════════════════════════════════════════════
 function render() {
   const total = activeQuestions.length;
@@ -439,9 +449,11 @@ function showEnd() {
   if (pct === 100) {
     trophy = '🌟'; title = 'Perfect Score!';
     msg = 'Amazing! You got every single question right. You are a true Noun Master — well done!';
+    startConfetti();
   } else if (pct >= 80) {
     trophy = '🎉'; title = 'Brilliant Work!';
     msg = 'You really know your nouns! Just a few more to perfect — give it another try!';
+    startConfetti();
   } else if (pct >= 60) {
     trophy = '👍'; title = 'Good Effort!';
     msg = 'You understand the basics. Review the rules about common and proper nouns and try again!';
@@ -456,6 +468,81 @@ function showEnd() {
   document.getElementById('finalPct').textContent = `${pct}% correct`;
   document.getElementById('finalMsg').textContent = msg;
   document.getElementById('endScreen').style.display = 'block';
+}
+
+// ════════════════════════════════════════════════════════════════
+// LIGHTWEIGHT NATIVE CONFETTI ENGINE
+// ════════════════════════════════════════════════════════════════
+const canvas = document.getElementById('confettiCanvas');
+const ctx = canvas.getContext('2d');
+let confettiParticles = [];
+let confettiAnimationId = null;
+
+const colors = ['#f5a623', '#f76b1c', '#43e97b', '#38f9d7', '#5b8dee', '#cdb0f0', '#ffeb3b'];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+
+function startConfetti() {
+  resizeCanvas();
+  canvas.style.display = 'block';
+  confettiParticles = [];
+  
+  // Create 100 confetti particles
+  for (let i = 0; i < 120; i++) {
+    confettiParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height - 20,
+      size: Math.random() * 6 + 6,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speedX: Math.random() * 4 - 2,
+      speedY: Math.random() * 3 + 3,
+      rotation: Math.random() * 360,
+      rotationSpeed: Math.random() * 4 - 2
+    });
+  }
+  
+  animateConfetti();
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let liveParticles = false;
+
+  confettiParticles.forEach(p => {
+    p.y += p.speedY;
+    p.x += p.speedX;
+    p.rotation += p.rotationSpeed;
+
+    if (p.y < canvas.height) {
+      liveParticles = true;
+    }
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation * Math.PI / 180);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+    ctx.restore();
+  });
+
+  if (liveParticles) {
+    confettiAnimationId = requestAnimationFrame(animateConfetti);
+  } else {
+    stopConfetti();
+  }
+}
+
+function stopConfetti() {
+  if (confettiAnimationId) {
+    cancelAnimationFrame(confettiAnimationId);
+    confettiAnimationId = null;
+  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.style.display = 'none';
 }
 </script>
 </body>
