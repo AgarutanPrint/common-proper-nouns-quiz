@@ -3,645 +3,790 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noun Master! – Common & Proper Nouns Quiz</title>
+<title>Noun Master! Common & Proper Nouns Quiz</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:#f0f7ff;min-height:100vh;padding:16px;color:#333;display:flex;justify-content:center;align-items:flex-start;}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── LAYOUT WRAPPER ── */
-.app-container {
-  width: 100%;
-  max-width: 650px;
-  margin: 0 auto;
-  padding-top: 12px;
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #e8f4fd;
+  min-height: 100vh;
+  padding: 16px;
+  color: #333;
 }
 
-.page{display:none;}
-.page.active{display:block;}
+.container { max-width: 860px; margin: 0 auto; }
 
-.main-header{text-align:center;padding:28px 16px 20px;margin-bottom:24px;}
-.main-header .castle{font-size:2.4em;display:block;margin-bottom:6px;}
-.main-header h1{font-size:1.95em;font-weight:900;color:#2d3436;line-height:1.2;}
-.main-header h1 span{color:#0984e3;}
-.main-header p{color:#7f8c8d;font-size:0.95em;font-weight:600;margin-top:6px;}
+/* ── MENU ── */
+#menuScreen { display: block; }
+#quizScreen { display: none; }
+#endScreen  { display: none; }
 
-.chooser-label{
-  font-size:0.72em;font-weight:900;color:#95a5a6;letter-spacing:1.5px;
-  text-transform:uppercase;margin-bottom:14px;
-  display:flex;align-items:center;gap:8px;
+.menu-header {
+  text-align: center;
+  padding: 30px 16px 24px;
 }
-.chooser-label::before{content:'🗂️';font-size:1.3em;}
+.menu-header .school-icon { font-size: 2.8rem; margin-bottom: 10px; }
+.menu-header h1 { font-size: 2rem; font-weight: 900; color: #222; }
+.menu-header h1 span { color: #5b8dee; }
+.menu-header p { color: #888; font-size: 0.95rem; margin-top: 4px; }
 
-.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.section-card{
-  border-radius:20px;padding:26px 14px 20px;text-align:center;
-  cursor:pointer;border:2.5px solid transparent;
-  transition:transform 0.18s,box-shadow 0.18s;
-}
-.section-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.12);}
-.section-card .card-icon{font-size:2em;margin-bottom:8px;}
-.section-card .card-num{font-size:0.68em;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;opacity:0.6;margin-bottom:3px;}
-.section-card .card-title{font-size:0.95em;font-weight:900;line-height:1.3;}
-.section-card .card-count{font-size:0.72em;font-weight:700;opacity:0.55;margin-top:5px;}
-
-.card-a {background:#e3faf2;border-color:#2ecc71;}
-.card-a .card-num,.card-a .card-count{color:#27ae60;}
-.card-a .card-title{color:#1e7e34;}
-
-.card-b {background:#e0f2fe;border-color:#3498db;}
-.card-b .card-num,.card-b .card-count{color:#2980b9;}
-.card-b .card-title{color:#1b4f72;}
-
-.card-ch{grid-column:1/-1;background:#f3e5f5;border-color:#9b59b6;}
-.card-ch .card-num,.card-ch .card-count{color:#8e44ad;}
-.card-ch .card-title{color:#4a148c;}
-
-/* ── QUIZ PAGE ── */
-.quiz-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.section-badge{font-size:0.76em;font-weight:900;padding:5px 14px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;}
-.badge-a{background:#e3faf2;color:#1e7e34;}
-.badge-b{background:#e0f2fe;color:#1b4f72;}
-.badge-ch{background:#f3e5f5;color:#4a148c;}
-
-/* ⚠️ ENHANCED EXIT BUTTON COLOR */
-.exit-btn{
-  display:flex;align-items:center;gap:5px;background:#fff;
-  border:2.5px solid #ff7675;border-radius:50px;padding:6px 16px;
-  font-family:'Nunito',sans-serif;font-size:0.86em;font-weight:850;
-  color:#d63031;cursor:pointer;transition:all 0.2s;
-}
-.exit-btn:hover{border-color:#d63031;color:#fff;background:#ff7675;}
-
-/* PROGRESS */
-.prog-wrap{background:#e8e8e8;border-radius:50px;height:12px;margin-bottom:6px;overflow:hidden;}
-.prog-bar{height:100%;border-radius:50px;transition:width 0.5s ease;}
-.bar-a{background:linear-gradient(90deg,#2ecc71,#27ae60);}
-.bar-b{background:linear-gradient(90deg,#3498db,#2980b9);}
-.bar-ch{background:linear-gradient(90deg,#9b59b6,#8e44ad);}
-.prog-text{display:flex;justify-content:space-between;font-size:0.8em;font-weight:700;color:#bbb;margin-bottom:20px;}
-
-/* QUESTION CARD */
-.q-card{
-  background:#fff;border-radius:22px;padding:24px 20px 20px;
-  box-shadow:0 4px 18px rgba(0,0,0,0.08);
-  animation:slideIn 0.35s ease;
-}
-@keyframes slideIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-
-.q-num-label{font-size:0.72em;font-weight:900;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
-.q-text{font-size:1.07em;font-weight:800;color:#2d3436;line-height:1.55;margin-bottom:16px;}
-.q-hint-text{font-size:0.8em;color:#aaa;font-weight:600;font-style:italic;margin-bottom:12px;}
-
-/* OPTIONS */
-.options{display:flex;flex-direction:column;gap:10px;}
-.opt-btn{
-  padding:13px 16px;border-radius:14px;border:2.5px solid #e8e8e8;
-  background:#fafafa;font-family:'Nunito',sans-serif;
-  font-size:0.97em;font-weight:700;color:#444;cursor:pointer;
-  text-align:left;transition:all 0.18s;
-}
-.opt-btn:hover:not(:disabled){border-color:#3498db;background:#f4f9fd;transform:translateX(3px);}
-.opt-btn.correct{border-color:#2ecc71;background:#d4fce9;color:#00664e;}
-.opt-btn.wrong{border-color:#e17055;background:#ffe0d9;color:#a33;}
-.opt-btn.reveal{border-color:#2ecc71;background:#d4fce9;color:#00664e;}
-.opt-btn:disabled{cursor:default;}
-
-/* FILL */
-.fill-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;line-height:2.2;margin-bottom:12px;}
-.fill-row span{font-weight:600;color:#555;font-size:0.97em;}
-.fill-input{
-  border:none;border-bottom:3px solid #3498db;background:transparent;
-  font-family:'Nunito',sans-serif;font-size:1em;font-weight:800;
-  color:#2d3436;width:145px;outline:none;text-align:center;
-  padding:2px 4px;transition:border-color 0.2s;
-}
-.fill-input:focus{border-color:#2980b9;}
-.fill-input.correct{border-color:#2ecc71;color:#00664e;}
-.fill-input.wrong{border-color:#e17055;color:#a33;}
-
-.check-btn{
-  padding:10px 24px;background:linear-gradient(135deg,#3498db,#2980b9);
-  color:#fff;border:none;border-radius:50px;
-  font-family:'Nunito',sans-serif;font-size:0.93em;font-weight:800;
-  cursor:pointer;box-shadow:0 3px 10px rgba(52,152,219,0.3);
-  transition:transform 0.15s;margin-bottom:4px;
-}
-.check-btn:hover:not(:disabled){transform:translateY(-2px);}
-.check-btn:disabled{background:#ccc;box-shadow:none;cursor:default;}
-
-/* ERROR SENTENCE BOX */
-.err-sentence{
-  font-size:1em;font-weight:700;color:#2d3436;
-  background:#f4f9fd;border-left:4px solid #3498db;
-  padding:12px 14px;border-radius:0 12px 12px 0;
-  margin-bottom:12px;line-height:1.6;
+.unit-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 800; color: #888;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  margin: 18px 0 14px;
 }
 
-/* FEEDBACK */
-.feedback-box{
-  border-radius:14px;padding:12px 15px;margin-top:14px;
-  font-size:0.88em;font-weight:700;line-height:1.5;display:none;
+.unit-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
 }
-.feedback-box.show{display:block;}
-.feedback-box.correct{background:#d4fce9;color:#00664e;}
-.feedback-box.wrong{background:#ffe0d9;color:#c0392b;}
 
-/* NEXT BTN */
-.next-btn{
-  display:none;width:100%;margin-top:16px;
-  padding:14px;background:linear-gradient(135deg,#9b59b6,#8e44ad);
-  color:#fff;border:none;border-radius:16px;
-  font-family:'Nunito',sans-serif;font-size:1em;font-weight:900;
-  cursor:pointer;box-shadow:0 4px 14px rgba(155,89,182,0.35);
-  transition:transform 0.15s;
+.unit-card {
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 28px 16px 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  background: white;
 }
-.next-btn.show{display:block;}
-.next-btn:hover{transform:translateY(-2px);}
+.unit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
 
-/* SCORE STRIP */
-.score-strip{
-  display:flex;justify-content:center;gap:20px;
-  margin-top:18px;padding:12px 0;
-  background:#fff;border-radius:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.06);
-}
-.score-item{text-align:center;}
-.score-item .val{font-size:1.5em;font-weight:900;}
-.score-item .lbl{font-size:0.7em;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;}
-.val-correct{color:#2ecc71;}
-.val-wrong{color:#e17055;}
-.val-pts{color:#9b59b6;}
+.unit-card.green { background: #edfaf2; border-color: #b2dfcb; }
+.unit-card.blue  { background: #eaf3ff; border-color: #b3cef5; }
+.unit-card-full  { grid-column: 1 / -1; background: #f5eeff; border-color: #cdb0f0; }
 
-/* ── RESULTS ── */
-.results-page{display:none;}
-.results-page.active{display:block;}
-.res-card{
-  border-radius:26px;padding:36px 24px;text-align:center;
-  color:#fff;margin-bottom:24px;
-  box-shadow:0 8px 28px rgba(0,0,0,0.18);
+.unit-card .icon { font-size: 2rem; margin-bottom: 10px; }
+.unit-card .part-label {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 4px;
 }
-.res-a{background:linear-gradient(135deg,#2ecc71,#27ae60);}
-.res-b{background:linear-gradient(135deg,#3498db,#2980b9);}
-.res-ch{background:linear-gradient(135deg,#9b59b6,#8e44ad);}
-.res-emoji{font-size:3.6em;margin-bottom:10px;}
-.res-title{font-size:1.7em;font-weight:900;margin-bottom:6px;}
-.res-score{font-size:3em;font-weight:900;margin:12px 0 6px;}
-.res-pct{font-size:1em;font-weight:700;opacity:0.85;margin-bottom:10px;}
-.res-msg{font-size:0.97em;font-weight:600;opacity:0.92;margin-bottom:22px;}
-.res-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.rbtn{padding:13px 28px;border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.95em;font-weight:900;cursor:pointer;transition:transform 0.15s;}
-.rbtn:hover{transform:translateY(-2px);}
-.rbtn-retry{background:#fff;color:#9b59b6;}
-.rbtn-menu{background:rgba(255,255,255,0.22);color:#fff;border:2px solid rgba(255,255,255,0.6);}
+.unit-card.green .part-label { color: #2e8b57; }
+.unit-card.blue  .part-label { color: #2060c0; }
+.unit-card-full  .part-label { color: #7b35c1; }
+
+.unit-card h3 { font-size: 1.1rem; font-weight: 800; color: #222; margin-bottom: 6px; }
+.unit-card .q-count { font-size: 0.82rem; color: #999; }
+
+/* ── QUIZ SCREEN ── */
+.quiz-header {
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  border-radius: 18px;
+  color: white;
+  text-align: center;
+  padding: 28px 20px 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(247,107,28,0.28);
+}
+.quiz-header h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 4px; }
+.quiz-header p  { font-size: 0.95rem; opacity: 0.9; }
+
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px; gap: 10px;
+}
+.exit-btn {
+  background: white;
+  border: 2px solid #f5a623;
+  color: #e65100;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.exit-btn:hover { background: #fff3e0; }
+
+.progress-wrap { flex: 1; }
+.progress-bar-bg {
+  background: #ffe0b2; border-radius: 10px; height: 11px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43e97b, #38f9d7);
+  border-radius: 10px;
+  transition: width 0.4s;
+}
+.progress-label { font-size: 0.78rem; color: #999; margin-top: 3px; text-align: center; }
+.score-display  { font-size: 0.85rem; color: #888; text-align: right; margin-bottom: 10px; }
+
+/* Section header */
+.section-header {
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  color: white;
+  border-radius: 12px 12px 0 0;
+  padding: 11px 18px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Question card */
+.question-card {
+  background: white;
+  border-radius: 0 0 16px 16px;
+  padding: 28px 28px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+.question-text {
+  font-size: 1.08rem; font-weight: 600; color: #333;
+  margin-bottom: 18px; line-height: 1.55;
+}
+
+/* Options */
+.options-grid { display: flex; flex-direction: column; gap: 10px; }
+.option-btn {
+  background: #fff8f0;
+  border: 2px solid #ffd0a0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-size: 1rem; font-weight: 500; color: #444;
+  cursor: pointer; text-align: left;
+  transition: all 0.17s;
+}
+.option-btn:hover:not(:disabled) {
+  background: #ffe0b2; border-color: #f5a623; transform: translateX(3px);
+}
+.option-btn.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; }
+.option-btn.wrong   { background: #fce4ec; border-color: #e53935; color: #b71c1c; }
+.option-btn:disabled { cursor: default; }
+
+.feedback {
+  margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.9rem; font-weight: 600; display: none;
+}
+.feedback.correct { background: #e8f5e9; color: #2e7d32; display: block; }
+.feedback.wrong   { background: #fce4ec; color: #c62828; display: block; }
+
+.nav-row { display: flex; justify-content: flex-end; margin-top: 14px; }
+.next-btn {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  color: #1b5e20; border: none; border-radius: 10px;
+  padding: 11px 26px; font-size: 0.96rem; font-weight: 700;
+  cursor: pointer; display: none; transition: opacity 0.2s;
+}
+.next-btn:hover { opacity: 0.88; }
+.next-btn.show { display: inline-block; }
+
+/* ── END SCREEN ── */
+#endScreen {
+  text-align: center;
+  background: white;
+  border-radius: 20px;
+  padding: 40px 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+#endScreen .trophy { font-size: 4rem; margin-bottom: 12px; }
+#endScreen h2 { font-size: 1.5rem; font-weight: 800; color: #e65100; margin-bottom: 8px; }
+.score-big { font-size: 2.8rem; font-weight: 900; color: #f5a623; }
+.score-pct { font-size: 1rem; color: #999; margin-bottom: 18px; }
+.end-message { font-size: 1rem; color: #555; margin-bottom: 26px; line-height: 1.6; }
+.end-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-retry {
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  color: white; border: none; border-radius: 12px;
+  padding: 13px 30px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; box-shadow: 0 4px 12px rgba(247,107,28,0.3);
+}
+.btn-menu {
+  background: white; color: #5b8dee;
+  border: 2px solid #5b8dee; border-radius: 12px;
+  padding: 13px 30px; font-size: 1rem; font-weight: 700; cursor: pointer;
+}
+.btn-menu:hover { background: #eaf3ff; }
+
+@media (max-width: 480px) {
+  .unit-cards { grid-template-columns: 1fr; }
+  .unit-card-full { grid-column: auto; }
+  .menu-header h1 { font-size: 1.5rem; }
+  .question-text { font-size: 0.95rem; }
+}
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="app-container">
-
-  <!-- ══════════ MENU ══════════ -->
-  <div class="page active" id="menuPage">
-    <div class="main-header">
-      <span class="castle">🏫</span>
-      <h1>Noun <span>Master!</span></h1>
-      <p>Common &amp; Proper Noun Workbook Quiz</p>
-      <p style="font-size:0.82em;color:#95a5a6;margin-top:3px;">Select a level to begin testing</p>
-    </div>
-
-    <div class="chooser-label">Select Quiz Unit</div>
-
-    <div class="cards-grid">
-      <div class="section-card card-a" onclick="startQuiz('a')">
-        <div class="card-icon">🍃</div>
-        <div class="card-num">Part A</div>
-        <div class="card-title">Common Nouns</div>
-        <div class="card-count">10 questions</div>
-      </div>
-      <div class="section-card card-b" onclick="startQuiz('b')">
-        <div class="card-icon">👑</div>
-        <div class="card-num">Part B</div>
-        <div class="card-title">Proper Nouns</div>
-        <div class="card-count">10 questions</div>
-      </div>
-      <div class="section-card card-ch" onclick="startQuiz('ch')">
-        <div class="card-icon">⚡</div>
-        <div class="card-num">Noun Challenge</div>
-        <div class="card-title">Capitalization &amp; Identification Master</div>
-        <div class="card-count">10 questions</div>
-      </div>
-    </div>
+<!-- ══════════════ MENU ══════════════ -->
+<div id="menuScreen">
+  <div class="menu-header">
+    <div class="school-icon">🏫</div>
+    <h1>Noun <span>Master!</span></h1>
+    <p>Common &amp; Proper Noun Workbook Quiz</p>
+    <p style="color:#aaa;font-size:0.85rem;margin-top:2px;">Select a unit to begin</p>
   </div>
 
-  <!-- ══════════ QUIZ ══════════ -->
-  <div class="page" id="quizPage">
-    <div class="quiz-topbar">
-      <div class="section-badge" id="sectionBadge"></div>
-      <button class="exit-btn" onclick="exitQuiz()">✕ Exit</button>
-    </div>
-    <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
-    <div class="prog-text">
-      <span id="progLabel">Question 1 of 10</span>
-      <span id="progPct">0%</span>
-    </div>
-
-    <div id="qCardWrap"></div>
-
-    <div class="score-strip" id="scoreStrip">
-      <div class="score-item"><div class="val val-correct" id="stripCorrect">0</div><div class="lbl">✅ Correct</div></div>
-      <div class="score-item"><div class="val val-wrong"   id="stripWrong">0</div><div class="lbl">❌ Wrong</div></div>
-      <div class="score-item"><div class="val val-pts"     id="stripPts">0</div><div class="lbl">⭐ Points</div></div>
-    </div>
+  <div class="unit-label">
+    <span>📋</span> SELECT QUIZ UNIT
   </div>
 
-  <!-- ══════════ RESULTS ══════════ -->
-  <div class="page" id="resultsPage">
-    <div class="res-card" id="resCard">
-      <div class="res-emoji" id="resEmoji"></div>
-      <div class="res-title" id="resTitle"></div>
-      <div class="res-score" id="resScore"></div>
-      <div class="res-pct"   id="resPct"></div>
-      <div class="res-msg"   id="resMsg"></div>
-      <div class="res-btns">
-        <button class="rbtn rbtn-retry" onclick="retryQuiz()">🔄 Try Again</button>
-        <button class="rbtn rbtn-menu"  onclick="goMenu()">🏠 Back to Menu</button>
-      </div>
+  <div class="unit-cards">
+    <div class="unit-card green" onclick="startQuiz('A')">
+      <div class="icon">🌿</div>
+      <div class="part-label">Part A</div>
+      <h3>Common Nouns</h3>
+      <div class="q-count">14 questions</div>
+    </div>
+    <div class="unit-card blue" onclick="startQuiz('B')">
+      <div class="icon">👑</div>
+      <div class="part-label">Part B</div>
+      <h3>Proper Nouns</h3>
+      <div class="q-count">14 questions</div>
+    </div>
+    <div class="unit-card unit-card-full" onclick="startQuiz('C')">
+      <div class="icon">⚡</div>
+      <div class="part-label">Noun Challenge</div>
+      <h3>Capitalization &amp; Identification Master</h3>
+      <div class="q-count">12 questions</div>
     </div>
   </div>
-
 </div>
 
+<!-- ══════════════ QUIZ ══════════════ -->
+<div id="quizScreen">
+  <div class="quiz-header">
+    <div style="font-size:1.6rem;margin-bottom:5px;">📚 ✏️</div>
+    <h2>Common &amp; Proper Nouns Quiz</h2>
+    <p>Grades 2–4 · Names Matter!</p>
+  </div>
+
+  <div class="top-bar">
+    <button class="exit-btn" onclick="exitToMenu()">⬅️ Exit to Menu</button>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">Question 1 of 14</div>
+    </div>
+  </div>
+  <div class="score-display" id="scoreDisplay">⭐ Score: 0</div>
+
+  <div id="quizArea"></div>
+</div>
+
+<!-- ══════════════ END ══════════════ -->
+<div id="endScreen">
+  <div class="trophy" id="trophyEmoji">🏆</div>
+  <h2 id="endTitle">Quiz Complete!</h2>
+  <div class="score-big" id="finalScore"></div>
+  <div class="score-pct" id="finalPct"></div>
+  <div class="end-message" id="finalMsg"></div>
+  <div class="end-buttons">
+    <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
+    <button class="btn-menu" onclick="goMenu()">🏠 Back to Menu</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
 <script>
-// ═══════════════════════════════════════
-//  QUESTION BANKS
-// ═══════════════════════════════════════
-const banks = {
-a:[
-  {type:"mc",q:"What is a common noun?",
-   opts:["The specific name of a person or place","A general name for any person, place, thing, or idea","An action word","A word that describes an adjective"],
-   ans:1,fb:"Common nouns name general items. They are only capitalized if they start a sentence."},
+// ════════════════════════════════════════════════════════════════
+// QUESTION BANKS
+// ════════════════════════════════════════════════════════════════
 
-  {type:"mc",q:"Which of these words is a common noun?",
-   opts:["London","Toyota","teacher","Monday"],
-   ans:2,fb:"'teacher' is a general common noun. London, Toyota, and Monday are specific proper nouns."},
-
-  {type:"mc",q:"Should common nouns be capitalized in the middle of a sentence?",
-   opts:["Yes, always","Only if they are long words","No, unless they start the sentence","Only on weekdays"],
-   ans:2,fb:"Common nouns do not get capital letters unless they are the very first word in a sentence."},
-
-  {type:"fill",q:"Identify the common noun representing a place: We went to the ________ to borrow books.",
-   blank:"library",fb:"'library' is a common noun for a place. It's a general name, not a specific named building."},
-
-  {type:"mc",q:"Find the common noun in this sentence: 'The puppy barked loudly all night.'",
-   opts:["barked","loudly","puppy","all"],
-   ans:2,fb:"'puppy' is a general name for a thing/animal, making it the common noun."},
-
-  {type:"fill",q:"Complete with a common noun for an object: I wrote my name down with a ________.",
-   blank:"pencil",fb:"'pencil' is a standard common noun for an object."},
-
-  {type:"mc",q:"Which group contains ONLY common nouns?",
-   opts:["city, country, ocean","Paris, France, Atlantic","John, boy, school","Pizza Hut, restaurant, food"],
-   ans:0,fb:"'city, country, ocean' are all general names. The other groups contain capitalized proper nouns."},
-
-  {type:"fill",q:"Identify the common noun: 'Dr. Jones works at a large hospital.'",
-   blank:"hospital",fb:"'hospital' is the general common noun. 'Dr. Jones' is a specific proper noun."},
-
-  {type:"mc",q:"What category of common noun is 'happiness'?",
-   opts:["Person","Place","Thing / Idea","Animal"],
-   ans:2,fb:"'happiness' is an abstract noun, which falls under the category of an idea or thing!"},
-
-  {type:"mc",q:"Which word is a common noun?",
-   opts:["Microsoft","computer","Windows 11","October"],
-   ans:1,fb:"'computer' is the general item. Microsoft, Windows 11, and October are all specific brand names/dates."}
-],
-
-b:[
-  {type:"mc",q:"What is a proper noun?",
-   opts:["A general name for a thing","A word used for actions","A specific name for a particular person, place, or thing","A short description"],
-   ans:2,fb:"Proper nouns name specific individuals, unique places, days, months, and titles. They ALWAYS start with a capital letter!"},
-
-  {type:"mc",q:"Which word is a proper noun that requires a capital letter?",
-   opts:["ocean","river","amazon river","waterfall"],
-   ans:2,fb:"'Amazon River' is a specific river name, so it must be capitalized. The others are general common nouns."},
-
-  {type:"fill",q:"Capitalize the proper noun correctly: 'We are traveling to france this summer.'",
-   blank:"France",fb:"Country names are proper nouns and must always start with a capital letter: France."},
-
-  {type:"mc",q:"Which of the following is a properly capitalized proper noun?",
-   opts:["mr. davis","Mr. davis","Mr. Davis","mr davis"],
-   ans:2,fb:"Both the title and the name must be capitalized in names of people: Mr. Davis."},
-
-  {type:"fill",q:"What proper noun goes in the blank? 'The day after Monday is ________.'",
-   blank:"Tuesday",fb:"Days of the week are proper nouns and must always begin with a capital letter: Tuesday."},
-
-  {type:"mc",q:"Which of these sentences handles proper nouns correctly?",
-   opts:["We visited the Eiffel tower in Paris.","We visited the Eiffel Tower in Paris.","We visited the eiffel tower in paris.","We visited the Eiffel Tower in paris."],
-   ans:1,fb:"Both 'Eiffel Tower' (specific landmark) and 'Paris' (specific city) must be capitalized completely."},
-
-  {type:"fill",q:"Fix the capitalization of the month name: 'My birthday is in october.'",
-   blank:"October",fb:"Months of the year are proper nouns and must start with a capital letter: October."},
-
-  {type:"mc",q:"Which word is a proper noun?",
-   opts:["restaurant","McDonald's","burger","soda"],
-   ans:1,fb:"McDonald's is the specific, unique name of a restaurant chain, making it a proper noun."},
-
-  {type:"error",q:"Find the proper noun mistake in this sentence:",
-   sent:"My friend emma lives on Oak Street.",
-   opts:["emma → Emma","Oak → oak","Street → street","lives → Lives"],
-   ans:0,fb:"'Emma' is a person's specific name. It is a proper noun and must have a capital E!"},
-
-  {type:"mc",q:"Are holidays considered proper nouns?",
-   opts:["No, they are common nouns","Yes, like Christmas and Halloween","Only if they fall on a weekend","Only in winter"],
-   ans:1,fb:"Holidays are special named days, so they are always proper nouns and must be capitalized."}
-],
-
-ch:[
-  {type:"mc",q:"In the phrase 'the local library', the word 'library' is a:",
-   opts:["Proper Noun","Common Noun","Verb","Adjective"],
-   ans:1,fb:"It is general here, so it is a common noun. If it were named 'New York Public Library', it would be proper."},
-
-  {type:"mc",q:"In the phrase 'the New York Public Library', the whole name is a:",
-   opts:["Common Noun","Proper Noun","Pronoun","Action Word"],
-   ans:1,fb:"Because it's a specific, unique building name, it is a proper noun!"},
-
-  {type:"error",q:"Find the noun mistake in this sentence:",
-   sent:"On regular sundays, I go running in the park.",
-   opts:["sundays → Sundays","park → Park","running → Running","regular → Regular"],
-   ans:0,fb:"Days of the week must always be capitalized. 'sundays' should be 'Sundays'."},
-
-  {type:"error",q:"Find the noun mistake in this sentence:",
-   sent:"Mr. Jackson flew across the Atlantic ocean.",
-   opts:["Jackson → jackson","ocean → Ocean","across → Across","flew → Flew"],
-   ans:1,fb:"The full name of the body of water is proper. It must be written as 'Atlantic Ocean'."},
-
-  {type:"fill",q:"Type the word that needs a capital letter: 'My favorite planet to study is mars.'",
-   blank:"Mars",fb:"Planets are unique, specific named places. 'Mars' must have a capital M!"},
-
-  {type:"fill",q:"Type the word that needs a capital letter: 'We bought a new car made by toyota.'",
-   blank:"Toyota",fb:"Brand names are specific names for a company or product. 'Toyota' must be capitalized."},
-
-  {type:"mc",q:"Which words are common nouns in: 'Harry loves to eat pizza at the restaurant.'?",
-   opts:["Harry, pizza","pizza, restaurant","Harry, restaurant","loves, eat"],
-   ans:1,fb:"'pizza' and 'restaurant' are general names (common). 'Harry' is proper."},
-
-  {type:"mc",q:"Which word is a proper noun in: 'The boy looked through his telescope to see Jupiter.'?",
-   opts:["boy","telescope","Jupiter","see"],
-   ans:2,fb:"'Jupiter' is the unique name of a specific planet, making it the proper noun."},
-
-  {type:"error",q:"Find the improper lowercase word:",
-   sent:"We had a great time celebrating thanksgiving with family.",
-   opts:["thanksgiving → Thanksgiving","family → Family","time → Time","celebrating → Celebrating"],
-   ans:0,fb:"Holiday names are proper nouns and must be capitalized: Thanksgiving."},
-
-  {type:"fill",q:"Complete with the proper capitalized noun: My favorite teacher is ________ Smith.",
-   blank:"Mr.",fb:"Titles used in names like Mr., Ms., Mrs., or Dr. must always be capitalized."}
-]
-};
-
-// ═══════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════
-let curSection = null;
-let curQs      = [];
-let curIdx     = 0;
-let numCorrect = 0;
-let numWrong   = 0;
-let answered   = false;
-
-// ═══════════════════════════════════════
-//  PAGE HELPERS
-// ═══════════════════════════════════════
-function showPage(id){
-  ['menuPage','quizPage','resultsPage'].forEach(p=>{
-    document.getElementById(p).classList.remove('active');
-  });
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// ═══════════════════════════════════════
-//  START / EXIT / RETRY
-// ═══════════════════════════════════════
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
+const BANK_A = [
+  {
+    section: "📗 Common Nouns",
+    q: "A common noun is a ______ name for a person, place, thing or animal.",
+    options: ["specific", "general", "capital", "special"],
+    answer: 1,
+    feedback: "✅ Common nouns are GENERAL names — they can refer to any person, place, thing or animal."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Which of these is a common noun?",
+    options: ["London", "Emma", "city", "Monday"],
+    answer: 2,
+    feedback: "✅ 'city' is a common noun — it could be ANY city, not one specific one."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Common nouns do NOT start with a capital letter — UNLESS they are …",
+    options: ["animals", "at the beginning of a sentence", "things", "always capitalised"],
+    answer: 1,
+    feedback: "✅ Common nouns only get a capital letter when they start a sentence."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Which word is a common noun?",
+    options: ["run", "happy", "park", "quickly"],
+    answer: 2,
+    feedback: "✅ 'park' is a common noun — it names a place. 'run' is a verb, 'happy' and 'quickly' are not nouns."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "A common noun names something …",
+    options: ["very specific with a capital letter", "general — it could be any one of many", "only animals", "only places"],
+    answer: 1,
+    feedback: "✅ Common nouns are general — 'dog' could mean any dog, not a specific one!"
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "In 'The dog is running in the park,' the common nouns are …",
+    options: ["dog, running", "running, park", "dog, park", "the, dog"],
+    answer: 2,
+    feedback: "✅ 'dog' (animal) and 'park' (place) are both common nouns."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "How many common nouns are in: 'A teacher is reading a book'?",
+    options: ["One", "Two", "Three", "Four"],
+    answer: 1,
+    feedback: "✅ Two nouns: 'teacher' and 'book'. A sentence can have more than one common noun!"
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Which group contains ONLY common nouns?",
+    options: [
+      "girl, run, window",
+      "city, beautiful, park",
+      "dog, happy, cat",
+      "teacher, book, chair"
+    ],
+    answer: 3,
+    feedback: "✅ 'teacher', 'book' and 'chair' are ALL common nouns (person, thing, thing). The other groups each sneak in a verb ('run') or an adjective ('beautiful', 'happy') — those are not nouns!"
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "In 'My friend has a new bike,' the common nouns are …",
+    options: ["friend, new", "friend, bike", "new, bike", "has, bike"],
+    answer: 1,
+    feedback: "✅ 'friend' (person) and 'bike' (thing) are both common nouns."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "In 'The cat is sleeping on a chair,' the common nouns are …",
+    options: ["sleeping, chair", "cat, sleeping", "cat, chair", "the, chair"],
+    answer: 2,
+    feedback: "✅ 'cat' (animal) and 'chair' (thing) are both common nouns."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Which word is a common noun?",
+    options: ["jump", "doctor", "beautiful", "quickly"],
+    answer: 1,
+    feedback: "✅ 'doctor' is a common noun — it names a person (a general job title)."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Which sentence uses a common noun correctly?",
+    options: [
+      "A Girl is walking to school.",
+      "A girl is walking to school.",
+      "A GIRL is walking to school.",
+      "A girl is Walking to school."
+    ],
+    answer: 1,
+    feedback: "✅ Option B is correct. In option D, 'Walking' has a wrong capital W — verbs never get capitals mid-sentence either. Only proper nouns (like names and places) need a capital letter in the middle of a sentence."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "In 'A boy is eating an apple in the garden,' how many common nouns are there?",
+    options: ["Two (boy, apple)", "Three (boy, apple, garden)", "One (boy)", "Four"],
+    answer: 1,
+    feedback: "✅ Three common nouns: 'boy' (person), 'apple' (thing), 'garden' (place)."
+  },
+  {
+    section: "📗 Common Nouns",
+    q: "Common nouns can refer to …",
+    options: [
+      "only one very specific thing",
+      "ANY person, place, thing or animal — not just one special one",
+      "only people",
+      "only things you can see"
+    ],
+    answer: 1,
+    feedback: "✅ That's the key rule — common nouns are general and can mean any one of many!"
   }
-  return arr;
-}
+];
 
-function startQuiz(sec){
-  curSection = sec;
-  curQs      = shuffle([...banks[sec]]);
-  curIdx     = 0;
-  numCorrect = 0;
-  numWrong   = 0;
-  answered   = false;
-
-  const badge = document.getElementById('sectionBadge');
-  const bar   = document.getElementById('progBar');
-  if(sec==='a'){
-    badge.textContent='🍃 Part A – Common Nouns';
-    badge.className='section-badge badge-a';
-    bar.className='prog-bar bar-a';
-  } else if(sec==='b'){
-    badge.textContent='👑 Part B – Proper Nouns';
-    badge.className='section-badge badge-b';
-    bar.className='prog-bar bar-b';
-  } else {
-    badge.textContent='⚡ Noun Challenge';
-    badge.className='section-badge badge-ch';
-    bar.className='prog-bar bar-ch';
+const BANK_B = [
+  {
+    section: "📘 Proper Nouns",
+    q: "A proper noun is a ______ name for a person, place, thing or animal.",
+    options: ["general", "common", "specific", "short"],
+    answer: 2,
+    feedback: "✅ Proper nouns are SPECIFIC — they name ONE particular person, place or animal."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Proper nouns ALWAYS start with a …",
+    options: ["lowercase letter", "capital letter", "vowel", "number"],
+    answer: 1,
+    feedback: "✅ Proper nouns ALWAYS start with a capital letter — that's the golden rule!"
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which of these is a proper noun?",
+    options: ["policeman", "Tom", "child", "animal"],
+    answer: 1,
+    feedback: "✅ 'Tom' is a proper noun — it names one specific person."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Days of the week and months of the year are always …",
+    options: ["common nouns", "verbs", "adjectives", "proper nouns"],
+    answer: 3,
+    feedback: "✅ Days and months are ALWAYS proper nouns — they always start with a capital letter!"
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which of these is a proper noun?",
+    options: ["country", "street", "Oxford", "bird"],
+    answer: 2,
+    feedback: "✅ 'Oxford' is a proper noun — it names one specific place."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which word is a proper noun?",
+    options: ["week", "day", "Saturday", "season"],
+    answer: 2,
+    feedback: "✅ 'Saturday' is a proper noun — it's a specific day of the week."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which word is a proper noun?",
+    options: ["doctor", "nurse", "child", "Dr. John"],
+    answer: 3,
+    feedback: "✅ 'Dr. John' is a proper noun — a title used with a specific name."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which word is a proper noun?",
+    options: ["season", "month", "weather", "August"],
+    answer: 3,
+    feedback: "✅ 'August' is a proper noun — it names a specific month of the year."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Is 'Snowball' (a pet's name) a common noun or a proper noun?",
+    options: ["Common noun", "Proper noun"],
+    answer: 1,
+    feedback: "✅ 'Snowball' is a proper noun — it's the specific name given to one particular pet."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Is 'Vienna' a common noun or a proper noun?",
+    options: ["Common noun", "Proper noun"],
+    answer: 1,
+    feedback: "✅ 'Vienna' is a proper noun — it names one specific city."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "Which sentence contains a proper noun used correctly?",
+    options: [
+      "Sophie visits london every august.",
+      "sophie visits London every August.",
+      "Sophie visits London every August.",
+      "Sophie Visits London Every August."
+    ],
+    answer: 2,
+    feedback: "✅ 'Sophie' (name), 'London' (city) and 'August' (month) are all proper nouns — each needs a capital letter."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "The common noun 'girl' becomes the proper noun …",
+    options: ["a girl", "Girl", "Emma", "the girl"],
+    answer: 2,
+    feedback: "✅ 'Emma' is the proper noun — it's a specific name for a specific girl!"
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "The common noun 'day' becomes the proper noun …",
+    options: ["a day", "the day", "every day", "Monday"],
+    answer: 3,
+    feedback: "✅ 'Monday' is a proper noun — it names one specific day of the week."
+  },
+  {
+    section: "📘 Proper Nouns",
+    q: "A girl has a pet rabbit. She named it Coco. Which word is a proper noun?",
+    options: ["rabbit", "pet", "Coco", "animal"],
+    answer: 2,
+    feedback: "✅ 'Coco' is a proper noun — it's the specific name given to one particular rabbit. 'rabbit', 'pet' and 'animal' are all common nouns."
   }
+];
 
-  updateStrip();
-  showPage('quizPage');
-  renderQuestion();
+const BANK_C = [
+  {
+    section: "⚖️ Common or Proper?",
+    q: "Is 'rabbit' a common noun or a proper noun?",
+    options: ["Common noun — it's a general animal name", "Proper noun — it always needs a capital letter"],
+    answer: 0,
+    feedback: "✅ 'rabbit' is a common noun — it names any rabbit, not one specific rabbit."
+  },
+  {
+    section: "⚖️ Common or Proper?",
+    q: "Is 'October' a common noun or a proper noun?",
+    options: ["Common noun", "Proper noun — months are always proper nouns!"],
+    answer: 1,
+    feedback: "✅ 'October' is a proper noun — all months of the year are proper nouns."
+  },
+  {
+    section: "⚖️ Common or Proper?",
+    q: "Is 'policeman' a common noun or a proper noun?",
+    options: ["Common noun — it's a general job title", "Proper noun — job titles always have capitals"],
+    answer: 0,
+    feedback: "✅ 'policeman' is a common noun — it names a general type of person, not one specific person."
+  },
+  {
+    section: "⚖️ Common or Proper?",
+    q: "Is 'Captain Cook' a common noun or a proper noun?",
+    options: ["Common noun", "Proper noun — title + specific name"],
+    answer: 1,
+    feedback: "✅ 'Captain Cook' is a proper noun — it combines a title with a specific person's name."
+  },
+  {
+    section: "✏️ Fix the Sentence",
+    q: "Which sentence is written correctly?",
+    options: [
+      "mia visited rome last october.",
+      "Mia visited rome last October.",
+      "Mia visited Rome last October."
+    ],
+    answer: 2,
+    feedback: "✅ 'Mia' (name), 'Rome' (city) and 'October' (month) are all proper nouns — every one needs a capital letter!"
+  },
+  {
+    section: "✏️ Fix the Sentence",
+    q: "Which sentence is written correctly?",
+    options: [
+      "Captain wells keeps our street safe on wednesday.",
+      "Captain Wells keeps our street safe on Wednesday.",
+      "captain Wells keeps our street safe on Wednesday."
+    ],
+    answer: 1,
+    feedback: "✅ 'Captain Wells' (title + name) and 'Wednesday' (day of the week) are proper nouns — both need capitals."
+  },
+  {
+    section: "✏️ Fix the Sentence",
+    q: "Which sentence is written correctly?",
+    options: [
+      "My rabbit snowball loves carrots.",
+      "My Rabbit Snowball loves carrots.",
+      "My rabbit Snowball loves carrots."
+    ],
+    answer: 2,
+    feedback: "✅ 'Snowball' is a proper noun (the pet's name) → capital S. 'rabbit' is a common noun → lowercase r."
+  },
+  {
+    section: "✏️ Fix the Sentence",
+    q: "Which sentence is written correctly?",
+    options: [
+      "We travelled to Brazil in october.",
+      "We travelled to brazil in october.",
+      "We travelled to Brazil in October."
+    ],
+    answer: 2,
+    feedback: "✅ 'Brazil' (country) and 'October' (month) are both proper nouns — both need capitals!"
+  },
+  {
+    section: "✏️ Fix the Sentence",
+    q: "Which sentence is written correctly?",
+    options: [
+      "Every friday, emma visits her grandma in paris.",
+      "Every Friday, Emma visits her grandma in Paris.",
+      "Every friday, Emma visits her grandma in Paris."
+    ],
+    answer: 1,
+    feedback: "✅ 'Friday' (day), 'Emma' (name) and 'Paris' (city) are all proper nouns — all need capital letters."
+  },
+  {
+    section: "🎓 Using Titles",
+    q: "My sister wants to become a _____ when she grows up.",
+    options: ["Doctor — titles always have a capital", "doctor — it's a general job here, no capital needed"],
+    answer: 1,
+    feedback: "✅ 'doctor' is a common noun when used as a general job title with no specific name after it."
+  },
+  {
+    section: "🎓 Using Titles",
+    q: "We listened to _____ Jones explain the science experiment.",
+    options: ["professor Jones — no capital needed mid-sentence", "Professor Jones — title before a specific name → capital!"],
+    answer: 1,
+    feedback: "✅ 'Professor' gets a capital letter when it is used as a title directly before a specific name."
+  },
+  {
+    section: "🎓 Using Titles",
+    q: "I gave the letter to _____ Emily.",
+    options: ["aunt Emily — 'aunt' is always lowercase", "Aunt Emily — title before a name → capital A!"],
+    answer: 1,
+    feedback: "✅ 'Aunt' gets a capital letter when used as a title directly before a person's name."
+  }
+];
+
+// ════════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════════
+let activeQuestions = [];
+let current = 0;
+let score = 0;
+let answered = false;
+let activeUnit = '';
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-function exitQuiz(){
-  if(curIdx > 0){
-    if(!confirm('Exit quiz? Your progress will be lost.')) return;
+function startQuiz(unit) {
+  activeUnit = unit;
+  if (unit === 'A') activeQuestions = shuffle(BANK_A);
+  else if (unit === 'B') activeQuestions = shuffle(BANK_B);
+  else activeQuestions = shuffle(BANK_C);
+
+  current = 0;
+  score = 0;
+  answered = false;
+
+  document.getElementById('menuScreen').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'none';
+  document.getElementById('quizScreen').style.display = 'block';
+  render();
+}
+
+function exitToMenu() {
+  if (!answered && current > 0) {
+    if (!confirm('Exit to menu? Your progress will be lost.')) return;
   }
   goMenu();
 }
 
-function goMenu(){showPage('menuPage');}
-
-function retryQuiz(){startQuiz(curSection);}
-
-// ═══════════════════════════════════════
-//  PROGRESS
-// ═══════════════════════════════════════
-function updateProgress(){
-  const done = curIdx;
-  const total= curQs.length;
-  const pct  = Math.round((done/total)*100);
-  document.getElementById('progBar').style.width = pct+'%';
-  document.getElementById('progLabel').textContent= 'Question '+(done+1)+' of '+total;
-  document.getElementById('progPct').textContent  = pct+'%';
+function goMenu() {
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'none';
+  document.getElementById('menuScreen').style.display = 'block';
 }
 
-function updateStrip(){
-  document.getElementById('stripCorrect').textContent = numCorrect;
-  document.getElementById('stripWrong').textContent   = numWrong;
-  document.getElementById('stripPts').textContent      = numCorrect*10;
+function retryQuiz() {
+  document.getElementById('endScreen').style.display = 'none';
+  startQuiz(activeUnit);
 }
 
-// ═══════════════════════════════════════
-//  RENDER QUESTION (⚠️ FIXED DUPLICATION BUG)
-// ═══════════════════════════════════════
-function renderQuestion(){
+// ════════════════════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════════════════════
+function render() {
+  const total = activeQuestions.length;
+  if (current >= total) { showEnd(); return; }
+
+  const q = activeQuestions[current];
+  const pct = Math.round((current / total) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Question ${current + 1} of ${total}`;
+  document.getElementById('scoreDisplay').textContent = `⭐ Score: ${score}`;
+
   answered = false;
-  updateProgress();
-  const q   = curQs[curIdx];
-  const wrap = document.getElementById('qCardWrap');
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
 
-  let html = `<div class="q-card">
-    <div class="q-num-label">Question ${curIdx+1} of ${curQs.length}</div>
-    <div class="q-text">${q.q}</div>`;
+  const sh = document.createElement('div');
+  sh.className = 'section-header';
+  sh.textContent = q.section;
+  area.appendChild(sh);
 
-  if(q.type==='mc'){
-    html+=`<div class="options">`;
-    q.opts.forEach((o,i)=>{
-      html+=`<button class="opt-btn" id="opt${i}" onclick="pickMC(${i})">${o}</button>`;
-    });
-    html+=`</div>`;
-  }
+  const card = document.createElement('div');
+  card.className = 'question-card';
 
-  if(q.type==='fill'){
-    const parts = q.q.split('________');
-    html+=`<div class="fill-row">`;
-    parts.forEach((p,i)=>{
-      html+=`<span>${p}</span>`;
-      if(i<parts.length-1){
-        html+=`<input class="fill-input" id="fillInput" type="text" placeholder="type here"
-          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-          onkeydown="if(event.key==='Enter')checkFill()">`;
-      }
-    });
-    html+=`</div>`;
-    html+=`<button class="check-btn" id="checkBtn" onclick="checkFill()">✅ Check</button>`;
-  }
+  const qt = document.createElement('div');
+  qt.className = 'question-text';
+  qt.textContent = q.q;
+  card.appendChild(qt);
 
-  if(q.type==='error'){
-    html+=`<div class="err-sentence">🔍 "${q.sent}"</div>`;
-    html+=`<div class="q-hint-text">Which option shows the correct fix?</div>`;
-    html+=`<div class="options">`;
-    q.opts.forEach((o,i)=>{
-      html+=`<button class="opt-btn" id="opt${i}" onclick="pickMC(${i})">${o}</button>`;
-    });
-    html+=`</div>`;
-  }
+  const grid = document.createElement('div');
+  grid.className = 'options-grid';
 
-  html+=`<div class="feedback-box" id="feedbackBox"></div>`;
-  html+=`<button class="next-btn" id="nextBtn" onclick="nextQuestion()">${curIdx===curQs.length-1?'🏁 See My Results!':'Next Question →'}</button>`;
-  html+=`</div>`;
-
-  wrap.innerHTML = html;
-
-  if(q.type==='fill'){
-    setTimeout(()=>{
-      const el=document.getElementById('fillInput');
-      if(el) el.focus();
-    },400);
-  }
-}
-
-// ═══════════════════════════════════════
-//  ANSWER HANDLERS
-// ═══════════════════════════════════════
-function pickMC(i){
-  if(answered) return;
-  answered = true;
-  const q   = curQs[curIdx];
-  const ok  = (i===q.ans);
-
-  q.opts.forEach((_,idx)=>{
-    const btn=document.getElementById('opt'+idx);
-    if(btn){
-      btn.disabled=true;
-      if(idx===q.ans) btn.classList.add('correct');
-      else if(idx===i && !ok) btn.classList.add('wrong');
-    }
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => select(btn, i, q, grid);
+    grid.appendChild(btn);
   });
 
-  showFeedback(ok, ok ? q.fb : 'The correct answer is: '+q.opts[q.ans]+'. '+q.fb);
-  recordAnswer(ok);
+  card.appendChild(grid);
+
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  fb.id = 'feedback';
+  card.appendChild(fb);
+
+  const nav = document.createElement('div');
+  nav.className = 'nav-row';
+  const nb = document.createElement('button');
+  nb.className = 'next-btn';
+  nb.id = 'nextBtn';
+  nb.textContent = current < total - 1 ? 'Next ➡️' : 'See Results 🏆';
+  nb.onclick = () => { current++; render(); };
+  nav.appendChild(nb);
+  card.appendChild(nav);
+
+  area.appendChild(card);
 }
 
-function checkFill(){
-  if(answered) return;
-  const q   = curQs[curIdx];
-  const inp = document.getElementById('fillInput');
-  if(!inp) return;
-  const val = inp.value.trim().toLowerCase();
-  const ok  = (val === q.blank.toLowerCase());
-  answered  = true;
+function select(btn, i, q, grid) {
+  if (answered) return;
+  answered = true;
 
-  inp.disabled = true;
-  inp.classList.add(ok ? 'correct' : 'wrong');
-  if(!ok) inp.value = q.blank;
+  const buttons = grid.querySelectorAll('.option-btn');
+  buttons.forEach(b => b.disabled = true);
 
-  const cb = document.getElementById('checkBtn');
-  if(cb) cb.disabled = true;
-
-  showFeedback(ok, ok ? q.fb : 'Answer: '+q.blank+'. '+q.fb);
-  recordAnswer(ok);
-}
-
-function showFeedback(ok, text){
-  const fb = document.getElementById('feedbackBox');
-  fb.textContent = (ok?'✅ ':'❌ ') + text;
-  fb.className   = 'feedback-box show '+(ok?'correct':'wrong');
+  const fb = document.getElementById('feedback');
   const nb = document.getElementById('nextBtn');
-  nb.classList.add('show');
-  
-  setTimeout(() => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth'
-    });
-  }, 100);
-}
 
-function recordAnswer(ok){
-  if(ok) numCorrect++; else numWrong++;
-  updateStrip();
-}
-
-// ═══════════════════════════════════════
-//  NEXT / RESULTS
-// ═══════════════════════════════════════
-function nextQuestion(){
-  curIdx++;
-  if(curIdx >= curQs.length){
-    showResults();
+  if (i === q.answer) {
+    btn.classList.add('correct');
+    score++;
+    fb.className = 'feedback correct';
+    fb.textContent = q.feedback;
   } else {
-    renderQuestion();
-    window.scrollTo({top:0,behavior:'smooth'});
+    btn.classList.add('wrong');
+    buttons[q.answer].classList.add('correct');
+    fb.className = 'feedback wrong';
+    fb.textContent = '❌ ' + q.feedback;
   }
+
+  nb.classList.add('show');
+  document.getElementById('scoreDisplay').textContent = `⭐ Score: ${score}`;
 }
 
-function showResults(){
-  showPage('resultsPage');
-  const total= curQs.length;
-  const pct  = Math.round((numCorrect/total)*100);
+// ════════════════════════════════════════════════════════════════
+// END SCREEN
+// ════════════════════════════════════════════════════════════════
+function showEnd() {
+  document.getElementById('quizScreen').style.display = 'none';
+  const total = activeQuestions.length;
+  const pct = Math.round((score / total) * 100);
 
-  const rc = document.getElementById('resCard');
-  rc.className = 'res-card '+(curSection==='a'?'res-a':curSection==='b'?'res-b':'res-ch');
+  let trophy = '🏆', title = 'Quiz Complete!', msg = '';
+  if (pct === 100) {
+    trophy = '🌟'; title = 'Perfect Score!';
+    msg = 'Amazing! You got every single question right. You are a true Noun Master — well done!';
+  } else if (pct >= 80) {
+    trophy = '🎉'; title = 'Brilliant Work!';
+    msg = 'You really know your nouns! Just a few more to perfect — give it another try!';
+  } else if (pct >= 60) {
+    trophy = '👍'; title = 'Good Effort!';
+    msg = 'You understand the basics. Review the rules about common and proper nouns and try again!';
+  } else {
+    trophy = '📖'; title = 'Keep Practising!';
+    msg = 'Remember: common nouns are general (no capital), proper nouns are specific (always a capital). You can do it!';
+  }
 
-  let emoji,title,msg;
-  if(pct===100)     {emoji='🏆';title='Perfect Score!';  msg='Amazing! You are a true Noun Master!';}
-  else if(pct>=80)  {emoji='🌟';title='Excellent Work!'; msg='Great job! You know your capitalization rules!';}
-  else if(pct>=60)  {emoji='😊';title='Good Effort!';    msg="You're getting close! Give it another shot!";}
-  else              {emoji='💪';title='Keep Practising!';msg='Review the differences and try again!';}
-
-  document.getElementById('resEmoji').textContent = emoji;
-  document.getElementById('resTitle').textContent = title;
-  document.getElementById('resScore').textContent = numCorrect+' / '+total;
-  document.getElementById('resPct').textContent   = pct+'% correct';
-  document.getElementById('resMsg').textContent   = msg;
+  document.getElementById('trophyEmoji').textContent = trophy;
+  document.getElementById('endTitle').textContent = title;
+  document.getElementById('finalScore').textContent = `${score} / ${total}`;
+  document.getElementById('finalPct').textContent = `${pct}% correct`;
+  document.getElementById('finalMsg').textContent = msg;
+  document.getElementById('endScreen').style.display = 'block';
 }
 </script>
 </body>
