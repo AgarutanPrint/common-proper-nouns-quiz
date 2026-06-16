@@ -11,202 +11,145 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #e8f4fd;
   min-height: 100vh;
-  padding: 16px;
+  padding: 8px 16px;
   color: #333;
+  overflow-x: hidden;
 }
 
-.container { max-width: 860px; margin: 0 auto; }
+.container { max-width: 800px; margin: 0 auto; }
 
-/* ── MENU ── */
+/* ── COMPACT MENU SCREEN ── */
 #menuScreen { display: block; }
 #quizScreen { display: none; }
 #endScreen  { display: none; }
 
 .menu-header {
   text-align: center;
-  padding: 30px 16px 24px;
+  padding: 10px 16px 12px;
 }
-.menu-header .school-icon { font-size: 2.8rem; margin-bottom: 10px; }
-.menu-header h1 { font-size: 2rem; font-weight: 900; color: #222; }
+.menu-header .school-icon { font-size: 2.2rem; margin-bottom: 2px; }
+.menu-header h1 { font-size: 1.8rem; font-weight: 900; color: #222; }
 .menu-header h1 span { color: #5b8dee; }
-.menu-header p { color: #888; font-size: 0.95rem; margin-top: 4px; }
+.menu-header p { color: #666; font-size: 0.9rem; margin-top: 2px; }
 
 .unit-label {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.78rem; font-weight: 800; color: #888;
-  letter-spacing: 1.2px; text-transform: uppercase;
-  margin: 18px 0 14px;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 800; color: #777;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin: 8px 0 8px;
 }
 
 .unit-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .unit-card {
   border: 2px solid transparent;
-  border-radius: 16px;
-  padding: 28px 16px 22px;
+  border-radius: 12px;
+  padding: 16px 12px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s;
+  transition: transform 0.15s, box-shadow 0.15s;
   background: white;
 }
-.unit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+.unit-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
 
 .unit-card.green { background: #edfaf2; border-color: #b2dfcb; }
 .unit-card.blue  { background: #eaf3ff; border-color: #b3cef5; }
-.unit-card-full  { grid-column: 1 / -1; background: #f5eeff; border-color: #cdb0f0; }
+.unit-card-full  { grid-column: 1 / -1; background: #f5eeff; border-color: #cdb0f0; padding: 14px 12px; }
 
-.unit-card .icon { font-size: 2rem; margin-bottom: 10px; }
+.unit-card .icon { font-size: 1.6rem; margin-bottom: 4px; }
 .unit-card .part-label {
-  font-size: 0.72rem; font-weight: 800; letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 4px;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px;
+  text-transform: uppercase; margin-bottom: 2px;
 }
 .unit-card.green .part-label { color: #2e8b57; }
 .unit-card.blue  .part-label { color: #2060c0; }
 .unit-card-full  .part-label { color: #7b35c1; }
 
-.unit-card h3 { font-size: 1.1rem; font-weight: 800; color: #222; margin-bottom: 6px; }
-.unit-card .q-count { font-size: 0.82rem; color: #999; }
+.unit-card h3 { font-size: 1rem; font-weight: 800; color: #222; margin-bottom: 2px; }
+.unit-card .q-count { font-size: 0.8rem; color: #888; }
 
-/* ── QUIZ SCREEN ── */
+/* ── COMPACT QUIZ SCREEN ── */
 .quiz-header {
   background: linear-gradient(135deg, #f5a623, #f76b1c);
-  border-radius: 18px;
+  border-radius: 12px;
   color: white;
   text-align: center;
-  padding: 28px 20px 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 14px rgba(247,107,28,0.28);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 10px rgba(247,107,28,0.2);
 }
-.quiz-header h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 4px; }
-.quiz-header p  { font-size: 0.95rem; opacity: 0.9; }
+.quiz-header h2 { font-size: 1.3rem; font-weight: 800; }
+.quiz-header p  { font-size: 0.85rem; opacity: 0.9; }
 
 .top-bar {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 6px; gap: 10px;
+  margin-bottom: 8px; gap: 10px;
 }
 .exit-btn {
-  background: white;
-  border: 2px solid #f5a623;
-  color: #e65100;
-  font-weight: 700;
-  font-size: 0.85rem;
-  border-radius: 8px;
-  padding: 7px 14px;
-  cursor: pointer;
-  transition: background 0.15s;
-  white-space: nowrap;
+  background: white; border: 2px solid #f5a623; color: #e65100;
+  font-weight: 700; font-size: 0.8rem; border-radius: 6px;
+  padding: 5px 10px; cursor: pointer; white-space: nowrap;
 }
 .exit-btn:hover { background: #fff3e0; }
 
 .progress-wrap { flex: 1; }
-.progress-bar-bg {
-  background: #ffe0b2; border-radius: 10px; height: 11px; overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #43e97b, #38f9d7);
-  border-radius: 10px;
-  transition: width 0.4s;
-}
-.progress-label { font-size: 0.78rem; color: #999; margin-top: 3px; text-align: center; }
-.score-display  { font-size: 0.85rem; color: #888; text-align: right; margin-bottom: 10px; }
+.progress-bar-bg { background: #ffe0b2; border-radius: 8px; height: 9px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, #43e97b, #38f9d7); border-radius: 8px; transition: width 0.3s; }
+.progress-label { font-size: 0.75rem; color: #777; margin-top: 2px; text-align: center; }
+.score-display  { font-size: 0.8rem; color: #666; text-align: right; margin-bottom: 6px; }
 
-/* Section header */
 .section-header {
-  background: linear-gradient(135deg, #f5a623, #f76b1c);
-  color: white;
-  border-radius: 12px 12px 0 0;
-  padding: 11px 18px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #f5a623, #f76b1c); color: white;
+  border-radius: 10px 10px 0 0; padding: 8px 14px;
+  font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
 }
 
-/* Question card */
 .question-card {
-  background: white;
-  border-radius: 0 0 16px 16px;
-  padding: 28px 28px 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  background: white; border-radius: 0 0 12px 12px; padding: 16px 20px;
+  margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.question-text {
-  font-size: 1.08rem; font-weight: 600; color: #333;
-  margin-bottom: 18px; line-height: 1.55;
-}
+.question-text { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 12px; line-height: 1.4; }
 
-/* Options */
-.options-grid { display: flex; flex-direction: column; gap: 10px; }
+.options-grid { display: flex; flex-direction: column; gap: 8px; }
 .option-btn {
-  background: #fff8f0;
-  border: 2px solid #ffd0a0;
-  border-radius: 10px;
-  padding: 13px 18px;
-  font-size: 1rem; font-weight: 500; color: #444;
-  cursor: pointer; text-align: left;
-  transition: all 0.17s;
+  background: #fff8f0; border: 2px solid #ffd0a0; border-radius: 8px;
+  padding: 10px 14px; font-size: 0.95rem; font-weight: 500; color: #444;
+  cursor: pointer; text-align: left; transition: all 0.15s;
 }
-.option-btn:hover:not(:disabled) {
-  background: #ffe0b2; border-color: #f5a623; transform: translateX(3px);
-}
+.option-btn:hover:not(:disabled) { background: #ffe0b2; border-color: #f5a623; transform: translateX(2px); }
 .option-btn.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; }
 .option-btn.wrong   { background: #fce4ec; border-color: #e53935; color: #b71c1c; }
-.option-btn:disabled { cursor: default; }
 
-.feedback {
-  margin-top: 12px; padding: 10px 14px; border-radius: 8px;
-  font-size: 0.9rem; font-weight: 600; display: none;
-}
+.feedback { margin-top: 10px; padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; display: none; }
 .feedback.correct { background: #e8f5e9; color: #2e7d32; display: block; }
 .feedback.wrong   { background: #fce4ec; color: #c62828; display: block; }
 
-.nav-row { display: flex; justify-content: flex-end; margin-top: 14px; }
+.nav-row { display: flex; justify-content: flex-end; margin-top: 10px; }
 .next-btn {
-  background: linear-gradient(135deg, #43e97b, #38f9d7);
-  color: #1b5e20; border: none; border-radius: 10px;
-  padding: 11px 26px; font-size: 0.96rem; font-weight: 700;
-  cursor: pointer; display: none; transition: opacity 0.2s;
+  background: linear-gradient(135deg, #43e97b, #38f9d7); color: #1b5e20;
+  border: none; border-radius: 8px; padding: 8px 20px; font-size: 0.9rem;
+  font-weight: 700; cursor: pointer; display: none;
 }
-.next-btn:hover { opacity: 0.88; }
 .next-btn.show { display: inline-block; }
 
-/* ── END SCREEN ── */
-#endScreen {
-  text-align: center;
-  background: white;
-  border-radius: 20px;
-  padding: 40px 24px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-#endScreen .trophy { font-size: 4rem; margin-bottom: 12px; }
-#endScreen h2 { font-size: 1.5rem; font-weight: 800; color: #e65100; margin-bottom: 8px; }
-.score-big { font-size: 2.8rem; font-weight: 900; color: #f5a623; }
-.score-pct { font-size: 1rem; color: #999; margin-bottom: 18px; }
-.end-message { font-size: 1rem; color: #555; margin-bottom: 26px; line-height: 1.6; }
-.end-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-retry {
-  background: linear-gradient(135deg, #f5a623, #f76b1c);
-  color: white; border: none; border-radius: 12px;
-  padding: 13px 30px; font-size: 1rem; font-weight: 700;
-  cursor: pointer; box-shadow: 0 4px 12px rgba(247,107,28,0.3);
-}
-.btn-menu {
-  background: white; color: #5b8dee;
-  border: 2px solid #5b8dee; border-radius: 12px;
-  padding: 13px 30px; font-size: 1rem; font-weight: 700; cursor: pointer;
-}
-.btn-menu:hover { background: #eaf3ff; }
+#endScreen { text-align: center; background: white; border-radius: 16px; padding: 24px 16px; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
+#endScreen .trophy { font-size: 3rem; margin-bottom: 8px; }
+#endScreen h2 { font-size: 1.3rem; font-weight: 800; color: #e65100; margin-bottom: 4px; }
+.score-big { font-size: 2.2rem; font-weight: 900; color: #f5a623; }
+.score-pct { font-size: 0.9rem; color: #888; margin-bottom: 12px; }
+.end-message { font-size: 0.9rem; color: #555; margin-bottom: 16px; line-height: 1.5; }
+.end-buttons { display: flex; gap: 10px; justify-content: center; }
+.btn-retry { background: linear-gradient(135deg, #f5a623, #f76b1c); color: white; border: none; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+.btn-menu { background: white; color: #5b8dee; border: 2px solid #5b8dee; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
 @media (max-width: 480px) {
   .unit-cards { grid-template-columns: 1fr; }
   .unit-card-full { grid-column: auto; }
-  .menu-header h1 { font-size: 1.5rem; }
-  .question-text { font-size: 0.95rem; }
 }
 </style>
 </head>
@@ -219,7 +162,6 @@ body {
     <div class="school-icon">🏫</div>
     <h1>Noun <span>Master!</span></h1>
     <p>Common &amp; Proper Noun Workbook Quiz</p>
-    <p style="color:#aaa;font-size:0.85rem;margin-top:2px;">Select a unit to begin</p>
   </div>
 
   <div class="unit-label">
@@ -231,19 +173,19 @@ body {
       <div class="icon">🌿</div>
       <div class="part-label">Part A</div>
       <h3>Common Nouns</h3>
-      <div class="q-count">14 questions</div>
+      <div class="q-count">15 questions</div>
     </div>
     <div class="unit-card blue" onclick="startQuiz('B')">
       <div class="icon">👑</div>
       <div class="part-label">Part B</div>
       <h3>Proper Nouns</h3>
-      <div class="q-count">14 questions</div>
+      <div class="q-count">15 questions</div>
     </div>
     <div class="unit-card unit-card-full" onclick="startQuiz('C')">
       <div class="icon">⚡</div>
       <div class="part-label">Noun Challenge</div>
-      <h3>Capitalization &amp; Identification Master</h3>
-      <div class="q-count">12 questions</div>
+      <h3>Capitalization, Titles &amp; Identification Master</h3>
+      <div class="q-count">20 questions</div>
     </div>
   </div>
 </div>
@@ -251,18 +193,17 @@ body {
 <!-- ══════════════ QUIZ ══════════════ -->
 <div id="quizScreen">
   <div class="quiz-header">
-    <div style="font-size:1.6rem;margin-bottom:5px;">📚 ✏️</div>
     <h2>Common &amp; Proper Nouns Quiz</h2>
     <p>Grades 2–4 · Names Matter!</p>
   </div>
 
   <div class="top-bar">
-    <button class="exit-btn" onclick="exitToMenu()">⬅️ Exit to Menu</button>
+    <button class="exit-btn" onclick="exitToMenu()">⬅️ Menu</button>
     <div class="progress-wrap">
       <div class="progress-bar-bg">
         <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
       </div>
-      <div class="progress-label" id="progressLabel">Question 1 of 14</div>
+      <div class="progress-label" id="progressLabel">Question 1</div>
     </div>
   </div>
   <div class="score-display" id="scoreDisplay">⭐ Score: 0</div>
@@ -279,354 +220,85 @@ body {
   <div class="end-message" id="finalMsg"></div>
   <div class="end-buttons">
     <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
-    <button class="btn-menu" onclick="goMenu()">🏠 Back to Menu</button>
+    <button class="btn-menu" onclick="goMenu()">🏠 Main Menu</button>
   </div>
 </div>
 
-</div><!-- /container -->
+</div>
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// QUESTION BANKS
+// NEW EXPANDED QUESTION POOL WITH ADDED TITLE RULES
 // ════════════════════════════════════════════════════════════════
 
 const BANK_A = [
-  {
-    section: "📗 Common Nouns",
-    q: "A common noun is a ______ name for a person, place, thing or animal.",
-    options: ["specific", "general", "capital", "special"],
-    answer: 1,
-    feedback: "✅ Common nouns are GENERAL names — they can refer to any person, place, thing or animal."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Which of these is a common noun?",
-    options: ["London", "Emma", "city", "Monday"],
-    answer: 2,
-    feedback: "✅ 'city' is a common noun — it could be ANY city, not one specific one."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Common nouns do NOT start with a capital letter — UNLESS they are …",
-    options: ["animals", "at the beginning of a sentence", "things", "always capitalised"],
-    answer: 1,
-    feedback: "✅ Common nouns only get a capital letter when they start a sentence."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Which word is a common noun?",
-    options: ["run", "happy", "park", "quickly"],
-    answer: 2,
-    feedback: "✅ 'park' is a common noun — it names a place. 'run' is a verb, 'happy' and 'quickly' are not nouns."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "A common noun names something …",
-    options: ["very specific with a capital letter", "general — it could be any one of many", "only animals", "only places"],
-    answer: 1,
-    feedback: "✅ Common nouns are general — 'dog' could mean any dog, not a specific one!"
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "In 'The dog is running in the park,' the common nouns are …",
-    options: ["dog, running", "running, park", "dog, park", "the, dog"],
-    answer: 2,
-    feedback: "✅ 'dog' (animal) and 'park' (place) are both common nouns."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "How many common nouns are in: 'A teacher is reading a book'?",
-    options: ["One", "Two", "Three", "Four"],
-    answer: 1,
-    feedback: "✅ Two nouns: 'teacher' and 'book'. A sentence can have more than one common noun!"
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Which group contains ONLY common nouns?",
-    options: [
-      "girl, run, window",
-      "city, beautiful, park",
-      "dog, happy, cat",
-      "teacher, book, chair"
-    ],
-    answer: 3,
-    feedback: "✅ 'teacher', 'book' and 'chair' are ALL common nouns (person, thing, thing). The other groups each sneak in a verb ('run') or an adjective ('beautiful', 'happy') — those are not nouns!"
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "In 'My friend has a new bike,' the common nouns are …",
-    options: ["friend, new", "friend, bike", "new, bike", "has, bike"],
-    answer: 1,
-    feedback: "✅ 'friend' (person) and 'bike' (thing) are both common nouns."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "In 'The cat is sleeping on a chair,' the common nouns are …",
-    options: ["sleeping, chair", "cat, sleeping", "cat, chair", "the, chair"],
-    answer: 2,
-    feedback: "✅ 'cat' (animal) and 'chair' (thing) are both common nouns."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Which word is a common noun?",
-    options: ["jump", "doctor", "beautiful", "quickly"],
-    answer: 1,
-    feedback: "✅ 'doctor' is a common noun — it names a person (a general job title)."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Which sentence uses a common noun correctly?",
-    options: [
-      "A Girl is walking to school.",
-      "A girl is walking to school.",
-      "A GIRL is walking to school.",
-      "A girl is Walking to school."
-    ],
-    answer: 1,
-    feedback: "✅ Option B is correct. In option D, 'Walking' has a wrong capital W — verbs never get capitals mid-sentence either. Only proper nouns (like names and places) need a capital letter in the middle of a sentence."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "In 'A boy is eating an apple in the garden,' how many common nouns are there?",
-    options: ["Two (boy, apple)", "Three (boy, apple, garden)", "One (boy)", "Four"],
-    answer: 1,
-    feedback: "✅ Three common nouns: 'boy' (person), 'apple' (thing), 'garden' (place)."
-  },
-  {
-    section: "📗 Common Nouns",
-    q: "Common nouns can refer to …",
-    options: [
-      "only one very specific thing",
-      "ANY person, place, thing or animal — not just one special one",
-      "only people",
-      "only things you can see"
-    ],
-    answer: 1,
-    feedback: "✅ That's the key rule — common nouns are general and can mean any one of many!"
-  }
+  { section: "📗 Common Nouns", q: "A common noun is a ______ name for a person, place, thing or animal.", options: ["specific", "general", "capital", "special"], answer: 1, feedback: "Common nouns are GENERAL names — they can refer to any person, place, thing or animal." },
+  { section: "📗 Common Nouns", q: "Which of these is a common noun?", options: ["London", "Emma", "city", "Monday"], answer: 2, feedback: "'city' is a common noun — it could be ANY city, not one specific one." },
+  { section: "📗 Common Nouns", q: "Common nouns do NOT start with a capital letter — UNLESS they are …", options: ["animals", "at the beginning of a sentence", "things", "always capitalised"], answer: 1, feedback: "Common nouns only get a capital letter when they start a sentence." },
+  { section: "📗 Common Nouns", q: "Which word is a common noun?", options: ["run", "happy", "park", "quickly"], answer: 2, feedback: "'park' is a common noun — it names a place." },
+  { section: "📗 Common Nouns", q: "A common noun names something …", options: ["very specific with a capital letter", "general — it could be any one of many", "only animals", "only places"], answer: 1, feedback: "Common nouns are general — 'dog' could mean any dog, not a specific one!" },
+  { section: "📗 Common Nouns", q: "In 'The dog is running in the park,' the common nouns are …", options: ["dog, running", "running, park", "dog, park", "the, dog"], answer: 2, feedback: "'dog' (animal) and 'park' (place) are both common nouns." },
+  { section: "📗 Common Nouns", q: "How many common nouns are in: 'A teacher is reading a book'?", options: ["One", "Two", "Three", "Four"], answer: 1, feedback: "Two nouns: 'teacher' and 'book'." },
+  { section: "📗 Common Nouns", q: "Which group contains ONLY common nouns?", options: ["girl, run, window", "city, beautiful, park", "dog, happy, cat", "teacher, book, chair"], answer: 3, feedback: "'teacher', 'book' and 'chair' are ALL common nouns (person, thing, thing)." },
+  { section: "📗 Common Nouns", q: "In 'My friend has a new bike,' the common nouns are …", options: ["friend, new", "friend, bike", "new, bike", "has, bike"], answer: 1, feedback: "'friend' (person) and 'bike' (thing) are both common nouns." },
+  { section: "📗 Common Nouns", q: "In 'The cat is sleeping on a chair,' the common nouns are …", options: ["sleeping, chair", "cat, sleeping", "cat, chair", "the, chair"], answer: 2, feedback: "'cat' (animal) and 'chair' (thing) are both common nouns." },
+  { section: "📗 Common Nouns", q: "Which word is a common noun?", options: ["jump", "doctor", "beautiful", "quickly"], answer: 1, feedback: "'doctor' is a common noun — it names a general job title." },
+  { section: "📗 Common Nouns", q: "Which sentence uses a common noun correctly?", options: ["A Girl is walking to school.", "A girl is walking to school.", "A GIRL is walking to school.", "A girl is Walking to school."], answer: 1, feedback: "A girl is walking to school. Common nouns don't get capitals in the middle of a sentence." },
+  { section: "📗 Common Nouns", q: "In 'A boy is eating an apple in the garden,' how many common nouns are there?", options: ["Two", "Three", "One", "Four"], answer: 1, feedback: "Three common nouns: 'boy' (person), 'apple' (thing), and 'garden' (place)." },
+  { section: "📗 Common Nouns", q: "Common nouns can refer to …", options: ["only one very specific thing", "ANY person, place, thing or animal — not just one special one", "only people", "only things you can see"], answer: 1, feedback: "Common nouns are general and can mean any one of many!" },
+  { section: "📗 Common Nouns", q: "Identify the option with zero common nouns.", options: ["The car stopped.", "They ran quickly upstairs.", "An old tree fell.", "My pencil broke."], answer: 1, feedback: "'They ran quickly upstairs' contains pronouns, verbs, and adverbs, but no common nouns!" }
 ];
 
 const BANK_B = [
-  {
-    section: "📘 Proper Nouns",
-    q: "A proper noun is a ______ name for a person, place, thing or animal.",
-    options: ["general", "common", "specific", "short"],
-    answer: 2,
-    feedback: "✅ Proper nouns are SPECIFIC — they name ONE particular person, place or animal."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Proper nouns ALWAYS start with a …",
-    options: ["lowercase letter", "capital letter", "vowel", "number"],
-    answer: 1,
-    feedback: "✅ Proper nouns ALWAYS start with a capital letter — that's the golden rule!"
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which of these is a proper noun?",
-    options: ["policeman", "Tom", "child", "animal"],
-    answer: 1,
-    feedback: "✅ 'Tom' is a proper noun — it names one specific person."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Days of the week and months of the year are always …",
-    options: ["common nouns", "verbs", "adjectives", "proper nouns"],
-    answer: 3,
-    feedback: "✅ Days and months are ALWAYS proper nouns — they always start with a capital letter!"
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which of these is a proper noun?",
-    options: ["country", "street", "Oxford", "bird"],
-    answer: 2,
-    feedback: "✅ 'Oxford' is a proper noun — it names one specific place."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which word is a proper noun?",
-    options: ["week", "day", "Saturday", "season"],
-    answer: 2,
-    feedback: "✅ 'Saturday' is a proper noun — it's a specific day of the week."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which word is a proper noun?",
-    options: ["doctor", "nurse", "child", "Dr. John"],
-    answer: 3,
-    feedback: "✅ 'Dr. John' is a proper noun — a title used with a specific name."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which word is a proper noun?",
-    options: ["season", "month", "weather", "August"],
-    answer: 3,
-    feedback: "✅ 'August' is a proper noun — it names a specific month of the year."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Is 'Snowball' (a pet's name) a common noun or a proper noun?",
-    options: ["Common noun", "Proper noun"],
-    answer: 1,
-    feedback: "✅ 'Snowball' is a proper noun — it's the specific name given to one particular pet."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Is 'Vienna' a common noun or a proper noun?",
-    options: ["Common noun", "Proper noun"],
-    answer: 1,
-    feedback: "✅ 'Vienna' is a proper noun — it names one specific city."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "Which sentence contains a proper noun used correctly?",
-    options: [
-      "Sophie visits london every august.",
-      "sophie visits London every August.",
-      "Sophie visits London every August.",
-      "Sophie Visits London Every August."
-    ],
-    answer: 2,
-    feedback: "✅ 'Sophie' (name), 'London' (city) and 'August' (month) are all proper nouns — each needs a capital letter."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "The common noun 'girl' becomes the proper noun …",
-    options: ["a girl", "Girl", "Emma", "the girl"],
-    answer: 2,
-    feedback: "✅ 'Emma' is the proper noun — it's a specific name for a specific girl!"
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "The common noun 'day' becomes the proper noun …",
-    options: ["a day", "the day", "every day", "Monday"],
-    answer: 3,
-    feedback: "✅ 'Monday' is a proper noun — it names one specific day of the week."
-  },
-  {
-    section: "📘 Proper Nouns",
-    q: "A girl has a pet rabbit. She named it Coco. Which word is a proper noun?",
-    options: ["rabbit", "pet", "Coco", "animal"],
-    answer: 2,
-    feedback: "✅ 'Coco' is a proper noun — it's the specific name given to one particular rabbit. 'rabbit', 'pet' and 'animal' are all common nouns."
-  }
+  { section: "📘 Proper Nouns", q: "A proper noun is a ______ name for a person, place, thing or animal.", options: ["general", "common", "specific", "short"], answer: 2, feedback: "Proper nouns are SPECIFIC — they name ONE particular person, place or animal." },
+  { section: "📘 Proper Nouns", q: "Proper nouns ALWAYS start with a …", options: ["lowercase letter", "capital letter", "vowel", "number"], answer: 1, feedback: "Proper nouns ALWAYS start with a capital letter — that's the golden rule!" },
+  { section: "📘 Proper Nouns", q: "Which of these is a proper noun?", options: ["policeman", "Tom", "child", "animal"], answer: 1, feedback: "'Tom' is a proper noun — it names one specific person." },
+  { section: "📘 Proper Nouns", q: "Days of the week and months of the year are always …", options: ["common nouns", "verbs", "adjectives", "proper nouns"], answer: 3, feedback: "Days and months are ALWAYS proper nouns and need capital letters!" },
+  { section: "📘 Proper Nouns", q: "Which of these is a proper noun?", options: ["country", "street", "Oxford", "bird"], answer: 2, feedback: "'Oxford' is a proper noun — it names one specific place." },
+  { section: "📘 Proper Nouns", q: "Which word is a proper noun?", options: ["week", "day", "Saturday", "season"], answer: 2, feedback: "'Saturday' is a proper noun — it's a specific day." },
+  { section: "📘 Proper Nouns", q: "Which word is a proper noun?", options: ["doctor", "nurse", "child", "Dr. John"], answer: 3, feedback: "'Dr. John' is a proper noun — a title used with a specific name." },
+  { section: "📘 Proper Nouns", q: "Which word is a proper noun?", options: ["season", "month", "weather", "August"], answer: 3, feedback: "'August' is a proper noun — it names a specific month." },
+  { section: "📘 Proper Nouns", q: "Is 'Snowball' (a pet's name) a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 1, feedback: "'Snowball' is a proper noun — it's the specific name given to an animal." },
+  { section: "📘 Proper Nouns", q: "Is 'Vienna' a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 1, feedback: "'Vienna' is a proper noun — it names one specific city." },
+  { section: "📘 Proper Nouns", q: "Which sentence contains a proper noun used correctly?", options: ["Sophie visits london every august.", "sophie visits London every August.", "Sophie visits London every August.", "Sophie Visits London Every August."], answer: 2, feedback: "'Sophie', 'London' and 'August' are all proper nouns — each needs a capital letter." },
+  { section: "📘 Proper Nouns", q: "The common noun 'girl' becomes the proper noun …", options: ["a girl", "Girl", "Emma", "the girl"], answer: 2, feedback: "'Emma' is the proper noun — it's a specific name for a girl!" },
+  { section: "📘 Proper Nouns", q: "The common noun 'day' becomes the proper noun …", options: ["a day", "the day", "every day", "Monday"], answer: 3, feedback: "'Monday' is a proper noun — it names one specific day." },
+  { section: "📘 Proper Nouns", q: "A girl has a pet rabbit named Coco. Which word is a proper noun?", options: ["rabbit", "pet", "Coco", "animal"], answer: 2, feedback: "'Coco' is a proper noun — it's the specific name of the rabbit." },
+  { section: "📘 Proper Nouns", q: "Which of the following contains a proper noun?", options: ["We climbed a high mountain.", "We climbed Mount Everest.", "We climbed up carefully.", "The mountain was snowy."], answer: 1, feedback: "'Mount Everest' is a specific, named mountain, making it a proper noun." }
 ];
 
 const BANK_C = [
-  {
-    section: "⚖️ Common or Proper?",
-    q: "Is 'rabbit' a common noun or a proper noun?",
-    options: ["Common noun — it's a general animal name", "Proper noun — it always needs a capital letter"],
-    answer: 0,
-    feedback: "✅ 'rabbit' is a common noun — it names any rabbit, not one specific rabbit."
-  },
-  {
-    section: "⚖️ Common or Proper?",
-    q: "Is 'October' a common noun or a proper noun?",
-    options: ["Common noun", "Proper noun — months are always proper nouns!"],
-    answer: 1,
-    feedback: "✅ 'October' is a proper noun — all months of the year are proper nouns."
-  },
-  {
-    section: "⚖️ Common or Proper?",
-    q: "Is 'policeman' a common noun or a proper noun?",
-    options: ["Common noun — it's a general job title", "Proper noun — job titles always have capitals"],
-    answer: 0,
-    feedback: "✅ 'policeman' is a common noun — it names a general type of person, not one specific person."
-  },
-  {
-    section: "⚖️ Common or Proper?",
-    q: "Is 'Captain Cook' a common noun or a proper noun?",
-    options: ["Common noun", "Proper noun — title + specific name"],
-    answer: 1,
-    feedback: "✅ 'Captain Cook' is a proper noun — it combines a title with a specific person's name."
-  },
-  {
-    section: "✏️ Fix the Sentence",
-    q: "Which sentence is written correctly?",
-    options: [
-      "mia visited rome last october.",
-      "Mia visited rome last October.",
-      "Mia visited Rome last October."
-    ],
-    answer: 2,
-    feedback: "✅ 'Mia' (name), 'Rome' (city) and 'October' (month) are all proper nouns — every one needs a capital letter!"
-  },
-  {
-    section: "✏️ Fix the Sentence",
-    q: "Which sentence is written correctly?",
-    options: [
-      "Captain wells keeps our street safe on wednesday.",
-      "Captain Wells keeps our street safe on Wednesday.",
-      "captain Wells keeps our street safe on Wednesday."
-    ],
-    answer: 1,
-    feedback: "✅ 'Captain Wells' (title + name) and 'Wednesday' (day of the week) are proper nouns — both need capitals."
-  },
-  {
-    section: "✏️ Fix the Sentence",
-    q: "Which sentence is written correctly?",
-    options: [
-      "My rabbit snowball loves carrots.",
-      "My Rabbit Snowball loves carrots.",
-      "My rabbit Snowball loves carrots."
-    ],
-    answer: 2,
-    feedback: "✅ 'Snowball' is a proper noun (the pet's name) → capital S. 'rabbit' is a common noun → lowercase r."
-  },
-  {
-    section: "✏️ Fix the Sentence",
-    q: "Which sentence is written correctly?",
-    options: [
-      "We travelled to Brazil in october.",
-      "We travelled to brazil in october.",
-      "We travelled to Brazil in October."
-    ],
-    answer: 2,
-    feedback: "✅ 'Brazil' (country) and 'October' (month) are both proper nouns — both need capitals!"
-  },
-  {
-    section: "✏️ Fix the Sentence",
-    q: "Which sentence is written correctly?",
-    options: [
-      "Every friday, emma visits her grandma in paris.",
-      "Every Friday, Emma visits her grandma in Paris.",
-      "Every friday, Emma visits her grandma in Paris."
-    ],
-    answer: 1,
-    feedback: "✅ 'Friday' (day), 'Emma' (name) and 'Paris' (city) are all proper nouns — all need capital letters."
-  },
-  {
-    section: "🎓 Using Titles",
-    q: "My sister wants to become a _____ when she grows up.",
-    options: ["Doctor — titles always have a capital", "doctor — it's a general job here, no capital needed"],
-    answer: 1,
-    feedback: "✅ 'doctor' is a common noun when used as a general job title with no specific name after it."
-  },
-  {
-    section: "🎓 Using Titles",
-    q: "We listened to _____ Jones explain the science experiment.",
-    options: ["professor Jones — no capital needed mid-sentence", "Professor Jones — title before a specific name → capital!"],
-    answer: 1,
-    feedback: "✅ 'Professor' gets a capital letter when it is used as a title directly before a specific name."
-  },
-  {
-    section: "🎓 Using Titles",
-    q: "I gave the letter to _____ Emily.",
-    options: ["aunt Emily — 'aunt' is always lowercase", "Aunt Emily — title before a name → capital A!"],
-    answer: 1,
-    feedback: "✅ 'Aunt' gets a capital letter when used as a title directly before a person's name."
-  }
+  { section: "⚖️ Common or Proper?", q: "Is 'rabbit' a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 0, feedback: "'rabbit' is a common noun — it names any general rabbit." },
+  { section: "⚖️ Common or Proper?", q: "Is 'October' a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 1, feedback: "'October' is a proper noun — all months are proper nouns." },
+  { section: "⚖️ Common or Proper?", q: "Is 'policeman' a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 0, feedback: "'policeman' is a general job title, no capital needed." },
+  { section: "⚖️ Common or Proper?", q: "Is 'Captain Cook' a common noun or a proper noun?", options: ["Common noun", "Proper noun"], answer: 1, feedback: "'Captain Cook' is a proper noun — it combines a title with a specific name." },
+  { section: "✏️ Fix the Sentence", q: "Which sentence is written correctly?", options: ["mia visited rome last october.", "Mia visited rome last October.", "Mia visited Rome last October."], answer: 2, feedback: "'Mia' (name), 'Rome' (city) and 'October' (month) are all proper nouns and need capital letters!" },
+  { section: "✏️ Fix the Sentence", q: "Which sentence is written correctly?", options: ["Captain wells keeps our street safe on wednesday.", "Captain Wells keeps our street safe on Wednesday.", "captain Wells keeps our street safe on Wednesday."], answer: 1, feedback: "'Captain Wells' (title + name) and 'Wednesday' (day) are proper nouns." },
+  { section: "✏️ Fix the Sentence", q: "Which sentence is written correctly?", options: ["My rabbit snowball loves carrots.", "My Rabbit Snowball loves carrots.", "My rabbit Snowball loves carrots."], answer: 2, feedback: "'Snowball' is a proper noun (pet name) → capital S. 'rabbit' is a common noun → lowercase r." },
+  { section: "✏️ Fix the Sentence", q: "Which sentence is written correctly?", options: ["We travelled to Brazil in october.", "We travelled to brazil in october.", "We travelled to Brazil in October."], answer: 2, feedback: "'Brazil' (country) and 'October' (month) are proper nouns." },
+  { section: "✏️ Fix the Sentence", q: "Which sentence is written correctly?", options: ["Every friday, emma visits her grandma in paris.", "Every Friday, Emma visits her grandma in Paris.", "Every friday, Emma visits her grandma in Paris."], answer: 1, feedback: "'Friday', 'Emma' and 'Paris' are all proper nouns." },
+  { section: "🎓 Using Titles", q: "My sister wants to become a _____ when she grows up.", options: ["Doctor", "doctor"], answer: 1, feedback: "'doctor' is a common noun here because it's a general job title without a name." },
+  { section: "🎓 Using Titles", q: "We listened to _____ Jones explain the science experiment.", options: ["professor Jones", "Professor Jones"], answer: 1, feedback: "'Professor' gets a capital letter when it is used directly before a specific name." },
+  { section: "🎓 Using Titles", q: "I gave the letter to _____ Emily.", options: ["aunt Emily", "Aunt Emily"], answer: 1, feedback: "'Aunt' gets a capital letter when used as a title directly before a person's name." },
+  { section: "🎓 Using Titles", q: "Which sentence handles titles correctly?", options: ["We saw uncle Ben at the store.", "We saw Uncle Ben at the store.", "We saw Uncle ben at the store."], answer: 1, feedback: "Both 'Uncle' and 'Ben' form the specific proper name, so both need capitals!" },
+  { section: "🎓 Using Titles", q: "Choose the correct sentence form:", options: ["The President signed the paper.", "The president signed the paper.", "The president signed the Paper."], answer: 1, feedback: "When used generally without a specific person's name following it, 'president' remains lowercase." },
+  { section: "🎓 Using Titles", q: "Did you talk to _____ Smith this morning?", options: ["principal", "Principal"], answer: 1, feedback: "Capitalize official titles when they directly precede a specific last name." },
+  { section: "⚖️ Common or Proper?", q: "Is 'school' a common or proper noun?", options: ["Common noun", "Proper noun"], answer: 0, feedback: "'school' is a general place. If it were 'Lincoln Elementary School', it would be proper!" },
+  { section: "✏️ Fix the Sentence", q: "Find the correct sentence:", options: ["We are going to Target on tuesday.", "We are going to target on Tuesday.", "We are going to Target on Tuesday."], answer: 2, feedback: "'Target' (store name) and 'Tuesday' (day) are both proper nouns." },
+  { section: "🎓 Using Titles", q: "I love my grandma's cooking. Is 'grandma' common or proper here?", options: ["Common noun", "Proper noun"], answer: 0, feedback: "It is a common noun here because it follows 'my' and acts as a general relation rule." },
+  { section: "🎓 Using Titles", q: "Can I go outside, ____?", options: ["Mom", "mom"], answer: 0, feedback: "Capitalize words like 'Mom' and 'Dad' when you use them as their direct name to call them!" },
+  { section: "⚖️ Common or Proper?", q: "Is 'holiday' a common or proper noun?", options: ["Common noun", "Proper noun"], answer: 0, feedback: "'holiday' is general. A specific holiday like 'Christmas' or 'Halloween' would be proper." }
 ];
 
 // ════════════════════════════════════════════════════════════════
-// STATE
+// STATE CONTROL WITH 12-QUESTION ROUND CAPS
 // ════════════════════════════════════════════════════════════════
 let activeQuestions = [];
 let current = 0;
 let score = 0;
 let answered = false;
 let activeUnit = '';
+const MAX_QUESTIONS_PER_ROUND = 12; 
 
 function shuffle(arr) {
   const a = arr.slice();
@@ -634,7 +306,7 @@ function shuffle(arr) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
-  return a;
+  return a.slice(0, MAX_QUESTIONS_PER_ROUND); 
 }
 
 function startQuiz(unit) {
@@ -672,7 +344,7 @@ function retryQuiz() {
 }
 
 // ════════════════════════════════════════════════════════════════
-// RENDER
+// CLEAN DESIGN RENDER PIPELINE
 // ════════════════════════════════════════════════════════════════
 function render() {
   const total = activeQuestions.length;
@@ -746,7 +418,7 @@ function select(btn, i, q, grid) {
     btn.classList.add('correct');
     score++;
     fb.className = 'feedback correct';
-    fb.textContent = q.feedback;
+    fb.textContent = "✅ " + q.feedback;
   } else {
     btn.classList.add('wrong');
     buttons[q.answer].classList.add('correct');
@@ -758,9 +430,6 @@ function select(btn, i, q, grid) {
   document.getElementById('scoreDisplay').textContent = `⭐ Score: ${score}`;
 }
 
-// ════════════════════════════════════════════════════════════════
-// END SCREEN
-// ════════════════════════════════════════════════════════════════
 function showEnd() {
   document.getElementById('quizScreen').style.display = 'none';
   const total = activeQuestions.length;
