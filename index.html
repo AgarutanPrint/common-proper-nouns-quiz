@@ -144,7 +144,7 @@ body {
 .score-big { font-size: 2.2rem; font-weight: 900; color: #f5a623; }
 .score-pct { font-size: 0.9rem; color: #888; margin-bottom: 12px; }
 .end-message { font-size: 0.9rem; color: #555; margin-bottom: 16px; line-height: 1.5; }
-.end-buttons { display: flex; gap: 10px; justify-content: center; }
+.end-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
 .btn-retry { background: linear-gradient(135deg, #f5a623, #f76b1c); color: white; border: none; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 .btn-menu { background: white; color: #5b8dee; border: 2px solid #5b8dee; border-radius: 10px; padding: 10px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
@@ -228,6 +228,25 @@ body {
   <div class="score-big" id="finalScore"></div>
   <div class="score-pct" id="finalPct"></div>
   <div class="end-message" id="finalMsg"></div>
+
+  <!-- 🔒 INCLUSIVE REVIEW BOX (COVERS PARENTS, TEACHERS, & TUTORS) -->
+  <div class="etsy-feedback-box" id="etsyReviewBox" style="display: none; border: 1px solid #d1d5db; background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px auto 10px; max-width: 500px; text-align: left;">
+    <div style="display: inline-block; background-color: #374151; color: white; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">
+      🔒 Notice: For Parents &amp; Educators
+    </div>
+    <div style="color: #111827; font-size: 1rem; font-weight: 700; margin-bottom: 6px;">
+      How did you like this complete resource bundle?
+    </div>
+    <p style="font-size: 0.85rem; color: #4b5563; line-height: 1.5; margin-bottom: 14px;">
+      Thank you for choosing <strong>Agarutan Print</strong>! We hope this combination of printable worksheets, the digital fillable PDF, and the interactive quiz bonus is helping to build your student's skills. 
+      <br><br>
+      If this comprehensive resource bundle added value to your student's learning experience, please take a brief moment to share your feedback on Etsy. Your review helps us continue creating high-quality learning assets!
+    </p>
+    <a href="https://www.etsy.com/your/purchases" target="_blank" style="display: inline-block; background-color: #111827; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem;">
+      Review This Resource Bundle
+    </a>
+  </div>
+
   <div class="end-buttons">
     <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
     <button class="btn-menu" onclick="goMenu()">🏠 Main Menu</button>
@@ -462,6 +481,14 @@ function showEnd() {
     msg = 'Remember: common nouns are general (no capital), proper nouns are specific (always a capital). You can do it!';
   }
 
+  // ── THE DEFENSE SCORE GATE ──
+  const reviewBox = document.getElementById('etsyReviewBox');
+  if (pct >= 70) {
+    reviewBox.style.display = 'block'; 
+  } else {
+    reviewBox.style.display = 'none';
+  }
+
   document.getElementById('trophyEmoji').textContent = trophy;
   document.getElementById('endTitle').textContent = title;
   document.getElementById('finalScore').textContent = `${score} / ${total}`;
@@ -491,7 +518,7 @@ function startConfetti() {
   canvas.style.display = 'block';
   confettiParticles = [];
   
-  // Create 100 confetti particles
+  // Create 120 confetti particles
   for (let i = 0; i < 120; i++) {
     confettiParticles.push({
       x: Math.random() * canvas.width,
